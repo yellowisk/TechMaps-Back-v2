@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: techmaps-v2
+  datasource:
+    url: jdbc:postgresql://localhost:5432/techmaps
+    username: techmaps-app
+    password: techmaps-app
+    driver-class-name: org.postgresql.Driver
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    jpa:
+      hibernate:
+        ddl-auto: update
+      properties:
+        hibernate:
+          dialetc: org.hibernate.dialect.PostgreSQLDialect
+          format_sql: true
+
+queries:
+  sql:
+    user-dao:
