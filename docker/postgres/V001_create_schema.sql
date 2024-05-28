@@ -9,8 +9,8 @@ DROP TABLE IF EXISTS techmaps_platform.user CASCADE;
 CREATE TABLE techmaps_platform.user (
     id uuid NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    username VARCHAR(255) NOT NULL UNIQUE
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
 );
 
 ALTER TABLE techmaps_platform.user OWNER TO "techmaps";
@@ -22,9 +22,9 @@ DROP TABLE IF EXISTS techmaps_platform.dashboard CASCADE;
 
 CREATE TABLE techmaps_platform.dashboard(
     id uuid NOT NULL,
+    user_id uuid NOT NULL,
     total_roadmaps int NOT NULL,
-    user_since TIMESTAMP NOT NULL,
-    user_id uuid NOT NULL
+    user_since TIMESTAMP NOT NULL
 );
 
 ALTER TABLE techmaps_platform.dashboard OWNER TO "techmaps";
@@ -61,11 +61,11 @@ DROP TABLE IF EXISTS techmaps_platform.roadmap_user CASCADE;
 
 CREATE TABLE techmaps_platform.roadmap_user (
     id uuid NOT NULL,
+    roadmap_id uuid NOT NULL,
+    user_id uuid NOT NULL,
     is_done BOOLEAN NOT NULL,
     start_time TIMESTAMP NOT NULL,
-    end_time TIMESTAMP NOT NULL,
-    roadmap_id uuid NOT NULL,
-    user_id uuid NOT NULL
+    end_time TIMESTAMP
 );
 
 ALTER TABLE techmaps_platform.roadmap_user OWNER TO "techmaps";
@@ -149,17 +149,16 @@ ALTER TABLE techmaps_platform.school_roadmap
 DROP TYPE IF EXISTS techmaps_platform.stage_theme CASCADE;
 
 CREATE TYPE techmaps_platform.stage_theme AS ENUM (
-    'LEARN_PYTHON'
+    'PYTHON'
 );
 
 DROP TABLE IF EXISTS techmaps_platform.stage CASCADE;
 
 CREATE TABLE techmaps_platform.stage (
     id uuid NOT NULL,
-    theme techmaps_platform.stage_theme NOT NULL,
-    is_done BOOLEAN NOT NULL,
-    position INTEGER NOT NULL,
-    roadmap_user_id uuid NOT NULL
+    roadmap_id uuid NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    theme techmaps_platform.stage_theme NOT NULL
 );
 
 ALTER TABLE techmaps_platform.stage OWNER TO "techmaps";
@@ -168,7 +167,30 @@ ALTER TABLE techmaps_platform.stage
     ADD CONSTRAINT stage_pkey PRIMARY KEY (id);
 
 ALTER TABLE techmaps_platform.stage
-    ADD CONSTRAINT stage_roadmap_user_id_fkey FOREIGN KEY (roadmap_user_id)
+    ADD CONSTRAINT stage_roadmap_user_id_fkey FOREIGN KEY (roadmap_id)
+        REFERENCES techmaps_platform.roadmap(id) ON DELETE CASCADE;
+
+DROP TABLE IF EXISTS techmaps_platform.stage_user CASCADE;
+
+CREATE TABLE techmaps_platform.stage_user (
+    id uuid NOT NULL,
+    stage_id uuid NOT NULL,
+    roadmap_user_id uuid NOT NULL,
+    is_done BOOLEAN NOT NULL,
+    position INTEGER NOT NULL
+);
+
+ALTER TABLE techmaps_platform.stage_user OWNER TO "techmaps";
+
+ALTER TABLE techmaps_platform.stage_user
+    ADD CONSTRAINT stage_user_pkey PRIMARY KEY (id);
+
+ALTER TABLE techmaps_platform.stage_user
+    ADD CONSTRAINT stage_user_stage_id_fkey FOREIGN KEY (stage_id)
+        REFERENCES techmaps_platform.stage(id) ON DELETE CASCADE;
+
+ALTER TABLE techmaps_platform.stage_user
+    ADD CONSTRAINT stage_user_roadmap_user_id_fkey FOREIGN KEY (roadmap_user_id)
         REFERENCES techmaps_platform.roadmap_user(id) ON DELETE CASCADE;
 
 DROP TABLE IF EXISTS techmaps_platform.task CASCADE;
@@ -178,7 +200,7 @@ CREATE TABLE techmaps_platform.task(
     stage_id uuid NOT NULL,
     title varchar(255) NOT NULL,
     description varchar(255) NOT NULL,
-    position int
+    position int NOT NULL
 );
 
 ALTER TABLE techmaps_platform.task OWNER TO "techmaps";
@@ -190,28 +212,25 @@ ALTER TABLE techmaps_platform.task
     ADD CONSTRAINT task_stage_id_fkey FOREIGN KEY (stage_id)
         REFERENCES techmaps_platform.stage(id) ON DELETE CASCADE;
 
-DROP TYPE IF EXISTS techmaps_platform.body_tag CASCADE;
-
-CREATE TYPE techmaps_platform.body_tag AS ENUM (
-    'PY1', 'PY2', 'PY3', 'PY4', 'PY5', 'PY6'
-);
-
-ALTER TYPE techmaps_platform.body_tag OWNER TO "techmaps";
-
-DROP TABLE IF EXISTS techmaps_platform.task_body CASCADE;
-
-CREATE TABLE techmaps_platform.task_body (
+CREATE TABLE techmaps_platform.task_user (
     id uuid NOT NULL,
-    body_tag techmaps_platform.body_tag NOT NULL,
-    position integer NOT NULL,
-    text varchar(255) NOT NULL,
-    link varchar
+    task_id uuid NOT NULL,
+    roadmap_user_id uuid NOT NULL,
+    is_done BOOLEAN NOT NULL
 );
 
-ALTER TABLE techmaps_platform.task_body
-    ADD CONSTRAINT task_body_pkey PRIMARY KEY (id);
+ALTER TABLE techmaps_platform.task_user OWNER TO "techmaps";
 
-ALTER TABLE techmaps_platform.task_body OWNER TO "techmaps";
+ALTER TABLE techmaps_platform.task_user
+    ADD CONSTRAINT task_user_pkey PRIMARY KEY (id);
+
+ALTER TABLE techmaps_platform.task_user
+    ADD CONSTRAINT task_user_task_id_fkey FOREIGN KEY (task_id)
+        REFERENCES techmaps_platform.task(id) ON DELETE CASCADE;
+
+ALTER TABLE techmaps_platform.task_user
+    ADD CONSTRAINT task_user_roadmap_user_id_fkey FOREIGN KEY (roadmap_user_id)
+        REFERENCES techmaps_platform.roadmap_user(id) ON DELETE CASCADE;
 
 DROP TABLE IF EXISTS techmaps_platform.step CASCADE;
 
@@ -220,8 +239,7 @@ CREATE TABLE techmaps_platform.step (
     task_id uuid NOT NULL,
     position integer NOT NULL,
     text varchar(255) NOT NULL,
-    link varchar,
-    is_done boolean NOT NULL
+    link varchar(255) NOT NULL
 );
 
 ALTER TABLE techmaps_platform.step OWNER TO "techmaps";
@@ -233,16 +251,20 @@ ALTER TABLE techmaps_platform.step
     ADD CONSTRAINT step_task_id_fkey FOREIGN KEY (task_id)
         REFERENCES techmaps_platform.task(id) ON DELETE CASCADE;
 
-DROP TABLE IF EXISTS techmaps_platform.step_body CASCADE;
+DROP TABLE IF EXISTS techmaps_platform.step_user CASCADE;
 
-CREATE TABLE techmaps_platform.step_body (
+CREATE TABLE techmaps_platform.step_user (
     id uuid NOT NULL,
-    position integer NOT NULL,
-    text varchar(255) NOT NULL,
-    link varchar
+    step_id uuid NOT NULL,
+    roadmap_user_id uuid NOT NULL,
+    is_done BOOLEAN NOT NULL
 );
 
-ALTER TABLE techmaps_platform.step_body OWNER TO "techmaps";
+ALTER TABLE techmaps_platform.step_user OWNER TO "techmaps";
 
-ALTER TABLE techmaps_platform.step_body
-    ADD CONSTRAINT step_body_pkey PRIMARY KEY (id);
+ALTER TABLE techmaps_platform.step_user
+    ADD CONSTRAINT step_user_pkey PRIMARY KEY (id);
+
+ALTER TABLE techmaps_platform.step_user
+    ADD CONSTRAINT step_user_roadmap_user_id_fkey FOREIGN KEY (roadmap_user_id)
+        REFERENCES techmaps_platform.roadmap_user(id) ON DELETE CASCADE;
