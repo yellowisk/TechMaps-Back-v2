@@ -5,28 +5,32 @@ import java.util.*;
 public class User {
     private UUID id;
     private String email;
-    private String name;
+    private String username;
     private String password;
 
-    public User(UUID id, String email, String name, String password) {
+    public User(UUID id, String email, String username, String password) {
         this.id = id;
         this.email = email;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
 
-    public User(String email, String name, String password) {
+    public User(String email, String username, String password) {
         this.email = email;
-        this.name = name;
+        this.username = username;
         this.password = password;
     }
 
-    public static User createFromUser(String email, String name, String password) {
-        return new User(email, name, password);
+    public static User createFull(UUID id, String email, String username, String password) {
+        return new User(id, email, username, password);
+    }
+
+    public static User createFromUser(String email, String username, String password) {
+        return new User(email, username, password);
     }
 
     public User createWithId(UUID id) {
-        return new User(id, email, name, password);
+        return new User(id, email, username, password);
     }
 
     public UUID getId() {
@@ -45,12 +49,12 @@ public class User {
         this.email = email;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
