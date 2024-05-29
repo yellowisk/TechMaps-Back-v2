@@ -26,3 +26,22 @@ spring:
 queries:
   sql:
     user-dao:
+      insert:
+        user: >
+          INSERT INTO techmaps_platform.user (id, email, username, password) 
+          VALUES (?, ?, ?, ?)
+      select:
+        user-by-id: >
+          SELECT * FROM techmaps_platform.user WHERE id = ?
+        user-by-email: >
+          SELECT * FROM techmaps_platform.user WHERE email = ?
+        user-by-username: >
+          SELECT * FROM techmaps_platform.user WHERE username = ?
+          user-by-id: >
+          SELECT * FROM techmaps_platform.user WHERE id = ?
+      update:
+        user: >
+          UPDATE techmaps_platform.user SET email = ?, username = ?, password = ? WHERE id = ?
+      exists:
+        user-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.user WHERE id = ?)
