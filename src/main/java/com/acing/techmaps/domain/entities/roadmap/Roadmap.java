@@ -13,6 +13,15 @@ public class Roadmap {
         this.language = language;
     }
 
+    public Roadmap(String name, Language language) {
+        this.name = name;
+        this.language = language;
+    }
+
+    public static Roadmap fromRequest(String name, String language) {
+        return new Roadmap(name, Language.valueOf(language));
+    }
+
     public UUID getId() {
         return id;
     }
