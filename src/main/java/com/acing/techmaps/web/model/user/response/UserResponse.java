@@ -4,10 +4,7 @@ import com.acing.techmaps.domain.entities.user.User;
 
 import java.util.UUID;
 
-public class UserResponse {
-    private UUID id;
-    private String email;
-    private String username;
+public record UserResponse (UUID id, String email, String username) {
 
     public UserResponse(UUID id, String email, String username) {
         this.id = id;
@@ -22,29 +19,4 @@ public class UserResponse {
                 user.getUsername()
         );
     }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
 }

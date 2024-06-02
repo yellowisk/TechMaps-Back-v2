@@ -4,10 +4,7 @@ import com.acing.techmaps.domain.entities.dashboard.Dashboard;
 
 import java.util.UUID;
 
-public class DashboardResponse {
-    private UUID id;
-    private UUID userId;
-    private int totalRoadmaps;
+public record DashboardResponse (UUID id, UUID userId, int totalRoadmaps) {
 
     public DashboardResponse(UUID id, UUID userId, int totalRoadmaps) {
         this.id = id;
@@ -21,29 +18,5 @@ public class DashboardResponse {
                 dashboard.getUserId(),
                 dashboard.getTotalRoadmaps()
         );
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    public int getTotalRoadmaps() {
-        return totalRoadmaps;
-    }
-
-    public void setTotalRoadmaps(int totalRoadmaps) {
-        this.totalRoadmaps = totalRoadmaps;
     }
 }
