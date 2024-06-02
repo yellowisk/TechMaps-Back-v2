@@ -1,7 +1,5 @@
 package com.acing.techmaps.domain.entities.school;
 
-import com.acing.techmaps.domain.entities.school.Role;
-
 import java.util.UUID;
 
 public class SchoolUser {

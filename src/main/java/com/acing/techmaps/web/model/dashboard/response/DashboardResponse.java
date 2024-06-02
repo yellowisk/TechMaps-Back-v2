@@ -4,7 +4,7 @@ import com.acing.techmaps.domain.entities.dashboard.Dashboard;
 
 import java.util.UUID;
 
-public record DashboardResponse (UUID id, UUID userId, int totalRoadmaps) {
+public record DashboardResponse(UUID id, UUID userId, int totalRoadmaps) {
 
     public DashboardResponse(UUID id, UUID userId, int totalRoadmaps) {
         this.id = id;

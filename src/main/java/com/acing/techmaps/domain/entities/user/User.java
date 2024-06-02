@@ -1,6 +1,6 @@
 package com.acing.techmaps.domain.entities.user;
 
-import java.util.*;
+import java.util.UUID;
 
 public class User {
     private UUID id;

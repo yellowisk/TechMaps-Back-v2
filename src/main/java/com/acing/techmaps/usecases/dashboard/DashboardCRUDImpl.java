@@ -7,8 +7,8 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public class DashboardCRUDImpl implements DashboardCRUD{
-    private DashboardDAO dashboardDAO;
+public class DashboardCRUDImpl implements DashboardCRUD {
+    private final DashboardDAO dashboardDAO;
 
     public DashboardCRUDImpl(DashboardDAO dashboardDAO) {
         this.dashboardDAO = dashboardDAO;

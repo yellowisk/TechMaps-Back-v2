@@ -20,25 +20,20 @@ import java.util.UUID;
 @Repository
 public class RoadmapDAOImpl implements RoadmapDAO {
     private final JdbcTemplate jdbcTemplate;
+    @Value("${queries.sql.roadmap-dao.insert.roadmap}")
+    private String insertRoadmapQuery;
+    @Value("${queries.sql.roadmap-dao.select.roadmap-by-id}")
+    private String selectRoadmapByIdQuery;
+    @Value("${queries.sql.roadmap-dao.select.roadmap-by-name}")
+    private String selectRoadmapByNameQuery;
+    @Value("${queries.sql.roadmap-dao.update.roadmap}")
+    private String updateRoadmapQuery;
+    @Value("${queries.sql.roadmap-dao.exists.roadmap-by-id}")
+    private String existsRoadmapIdQuery;
 
     public RoadmapDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    @Value("${queries.sql.roadmap-dao.insert.roadmap}")
-    private String insertRoadmapQuery;
-
-    @Value("${queries.sql.roadmap-dao.select.roadmap-by-id}")
-    private String selectRoadmapByIdQuery;
-
-    @Value("${queries.sql.roadmap-dao.select.roadmap-by-name}")
-    private String selectRoadmapByNameQuery;
-
-    @Value("${queries.sql.roadmap-dao.update.roadmap}")
-    private String updateRoadmapQuery;
-
-    @Value("${queries.sql.roadmap-dao.exists.roadmap-by-id}")
-    private String existsRoadmapIdQuery;
 
     @Override
     public Roadmap add(Roadmap roadmap) {

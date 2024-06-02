@@ -1,6 +1,5 @@
 package com.acing.techmaps.web.model.roadmap.request;
 
-import com.acing.techmaps.domain.entities.roadmap.Language;
 import com.acing.techmaps.domain.entities.roadmap.Roadmap;
 
 public record RoadmapRequest(String name, String language) {

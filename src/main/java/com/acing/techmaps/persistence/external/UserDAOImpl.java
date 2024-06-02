@@ -18,12 +18,7 @@ import java.util.UUID;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
-    private JdbcTemplate jdbcTemplate;
-
-    public UserDAOImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
+    private final JdbcTemplate jdbcTemplate;
     @Value("${queries.sql.user-dao.insert.user}")
     private String insertUserQuery;
     @Value("${queries.sql.user-dao.select.user-by-id}")
@@ -36,12 +31,15 @@ public class UserDAOImpl implements UserDAO {
     private String updateUserQuery;
     @Value("${queries.sql.user-dao.exists.user-by-id}")
     private String existsUserIdQuery;
+    public UserDAOImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public User add(User user) {
         UUID userId = Generators.timeBasedEpochGenerator().generate();
 
-        jdbcTemplate.update(insertUserQuery, rs-> {
+        jdbcTemplate.update(insertUserQuery, rs -> {
             rs.setObject(1, userId);
             rs.setString(2, user.getEmail());
             rs.setString(3, user.getUsername());
@@ -58,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
 
             return Optional.of(user);
         } catch (EmptyResultDataAccessException err) {
-             throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with id: " + id);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with id: " + id);
         }
     }
 
@@ -68,7 +66,7 @@ public class UserDAOImpl implements UserDAO {
             User user = jdbcTemplate.queryForObject(selectUserByEmailQuery,
                     this::mapperUserFromRs, email);
 
-            if(Objects.isNull(user)) {
+            if (Objects.isNull(user)) {
                 throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with email: " + email);
             }
 
@@ -84,7 +82,7 @@ public class UserDAOImpl implements UserDAO {
             User user = jdbcTemplate.queryForObject(selectUserByUsernameQuery,
                     this::mapperUserFromRs, username);
 
-            if(Objects.isNull(user)) {
+            if (Objects.isNull(user)) {
                 throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with username: " + username);
             }
 

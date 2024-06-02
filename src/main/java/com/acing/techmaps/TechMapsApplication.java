@@ -5,8 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class TechMapsApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(TechMapsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TechMapsApplication.class, args);
+    }
 
 }

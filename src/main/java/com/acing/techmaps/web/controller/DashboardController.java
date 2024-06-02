@@ -4,7 +4,10 @@ import com.acing.techmaps.domain.entities.dashboard.Dashboard;
 import com.acing.techmaps.usecases.dashboard.DashboardCRUD;
 import com.acing.techmaps.web.model.dashboard.response.DashboardResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 

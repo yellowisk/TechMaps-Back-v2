@@ -7,9 +7,14 @@ import java.util.UUID;
 
 public interface UserDAO {
     User add(User user);
+
     Optional<User> findById(UUID id);
+
     Optional<User> findByEmail(String email);
+
     Optional<User> findByUsername(String email);
+
     User update(User user);
+
     Boolean userExists(UUID id);
 }

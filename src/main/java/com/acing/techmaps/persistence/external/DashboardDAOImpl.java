@@ -12,16 +12,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
 public class DashboardDAOImpl implements DashboardDAO {
-    private JdbcTemplate jdbcTemplate;
-
-    public DashboardDAOImpl(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
+    private final JdbcTemplate jdbcTemplate;
     @Value("${queries.sql.dashboard-dao.insert.dashboard}")
     private String insertDashboardQuery;
     @Value("${queries.sql.dashboard-dao.select.dashboard-by-id}")
@@ -30,6 +27,9 @@ public class DashboardDAOImpl implements DashboardDAO {
     private String selectDashboardByUserIdQuery;
     @Value("${queries.sql.dashboard-dao.exists.dashboard-by-id}")
     private String existsDashboardIdQuery;
+    public DashboardDAOImpl(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public Dashboard add(UUID userId) {
