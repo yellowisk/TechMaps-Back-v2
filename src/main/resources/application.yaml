@@ -45,3 +45,18 @@ queries:
       exists:
         user-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.user WHERE id = ?)
+    dashboard-dao:
+      insert:
+        dashboard: >
+          INSERT INTO techmaps_platform.dashboard (id, user_id, total_roadmaps)
+          VALUES (?, ?, ?)
+      select:
+        dashboard-by-id: >
+          SELECT * FROM techmaps_platform.dashboard WHERE id = ?
+        dashboard-by-user-id: >
+          SELECT * FROM techmaps_platform.dashboard WHERE user_id = ?
+      exists:
+        dashboard-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.dashboard WHERE id = ?)
+    roadmpa-dao:
+    school-dao:

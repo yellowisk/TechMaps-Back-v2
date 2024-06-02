@@ -23,8 +23,7 @@ DROP TABLE IF EXISTS techmaps_platform.dashboard CASCADE;
 CREATE TABLE techmaps_platform.dashboard(
     id uuid NOT NULL,
     user_id uuid NOT NULL,
-    total_roadmaps int NOT NULL,
-    user_since TIMESTAMP NOT NULL
+    total_roadmaps int NOT NULL
 );
 
 ALTER TABLE techmaps_platform.dashboard OWNER TO "techmaps";
