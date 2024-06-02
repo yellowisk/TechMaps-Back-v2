@@ -5,9 +5,9 @@ import com.acing.techmaps.domain.entities.user.User;
 import java.util.UUID;
 
 public class UserResponse {
-    UUID id;
-    String email;
-    String username;
+    private UUID id;
+    private String email;
+    private String username;
 
     public UserResponse(UUID id, String email, String username) {
         this.id = id;
