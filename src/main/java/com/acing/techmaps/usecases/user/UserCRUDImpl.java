@@ -1,6 +1,7 @@
 package com.acing.techmaps.usecases.user;
 
 import com.acing.techmaps.domain.entities.user.User;
+import com.acing.techmaps.usecases.dashboard.gateway.DashboardDAO;
 import com.acing.techmaps.usecases.user.gateway.UserDAO;
 import com.acing.techmaps.web.model.user.request.UserRequest;
 import org.springframework.stereotype.Service;
@@ -10,12 +11,16 @@ import java.util.*;
 @Service
 public class UserCRUDImpl implements UserCRUD {
     private final UserDAO userDAO;
-    public UserCRUDImpl(UserDAO userDAO) {
+    private final DashboardDAO dashboardDAO;
+    public UserCRUDImpl(UserDAO userDAO, DashboardDAO dashboardDAO) {
         this.userDAO = userDAO;
+        this.dashboardDAO = dashboardDAO;
     }
     @Override
     public User registerNewUser(UserRequest request) {
-        return userDAO.addNewUser(request.toUser());
+        User user = userDAO.add(request.toUser());
+        dashboardDAO.add(user.getId());
+        return user;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.acing.techmaps.persistence.external;
 import com.acing.techmaps.domain.entities.user.User;
 import com.acing.techmaps.usecases.user.gateway.UserDAO;
 import com.acing.techmaps.web.exception.ResourceNotFoundException;
+import com.fasterxml.uuid.Generators;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -36,8 +37,8 @@ public class UserDAOImpl implements UserDAO {
     private String existsUserIdQuery;
 
     @Override
-    public User addNewUser(User user) {
-        UUID userId = UUID.randomUUID();
+    public User add(User user) {
+        UUID userId = Generators.timeBasedEpochGenerator().generate();
 
         jdbcTemplate.update(insertUserQuery, rs-> {
             rs.setObject(1, userId);
