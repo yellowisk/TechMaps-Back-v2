@@ -4,10 +4,11 @@ package com.acing.techmaps.persistence.external;
 import com.acing.techmaps.domain.entities.roadmap.Language;
 import com.acing.techmaps.domain.entities.roadmap.Roadmap;
 import com.acing.techmaps.usecases.roadmap.gateway.RoadmapDAO;
-import com.acing.techmaps.web.exception.ResourceNotFoundException;
+import com.acing.techmaps.web.exception.HttpException;
 import com.fasterxml.uuid.Generators;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -53,7 +54,7 @@ public class RoadmapDAOImpl implements RoadmapDAO {
 
             return Optional.of(roadmap);
         } catch (EmptyResultDataAccessException err) {
-            throw new ResourceNotFoundException("Could not find roadmap with id: " + id);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find roadmap with id: " + id);
         }
     }
 
@@ -64,7 +65,7 @@ public class RoadmapDAOImpl implements RoadmapDAO {
 
             return Optional.of(roadmap);
         } catch (EmptyResultDataAccessException err) {
-            throw new ResourceNotFoundException("Could not find roadmap with name: " + name);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find roadmap with name: " + name);
         }
     }
 
@@ -85,5 +86,4 @@ public class RoadmapDAOImpl implements RoadmapDAO {
         Language language = Language.valueOf(rs.getString("language"));
         return Roadmap.createFull(id, name, language);
     }
-
 }

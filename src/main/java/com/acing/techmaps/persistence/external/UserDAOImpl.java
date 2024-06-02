@@ -2,10 +2,11 @@ package com.acing.techmaps.persistence.external;
 
 import com.acing.techmaps.domain.entities.user.User;
 import com.acing.techmaps.usecases.user.gateway.UserDAO;
-import com.acing.techmaps.web.exception.ResourceNotFoundException;
+import com.acing.techmaps.web.exception.HttpException;
 import com.fasterxml.uuid.Generators;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -57,7 +58,7 @@ public class UserDAOImpl implements UserDAO {
 
             return Optional.of(user);
         } catch (EmptyResultDataAccessException err) {
-             throw new ResourceNotFoundException("Could not find user with id: " + id);
+             throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with id: " + id);
         }
     }
 
@@ -68,7 +69,7 @@ public class UserDAOImpl implements UserDAO {
                     this::mapperUserFromRs, email);
 
             if(Objects.isNull(user)) {
-                throw new ResourceNotFoundException("Could not find user with email: " + email);
+                throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with email: " + email);
             }
 
             return Optional.of(user);
@@ -84,7 +85,7 @@ public class UserDAOImpl implements UserDAO {
                     this::mapperUserFromRs, username);
 
             if(Objects.isNull(user)) {
-                throw new ResourceNotFoundException("Could not find user with username: " + username);
+                throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with username: " + username);
             }
 
             return Optional.of(user);
@@ -115,5 +116,4 @@ public class UserDAOImpl implements UserDAO {
 
         return User.createFull(id, email, username, password);
     }
-
 }

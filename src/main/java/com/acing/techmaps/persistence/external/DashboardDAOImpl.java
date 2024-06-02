@@ -2,10 +2,11 @@ package com.acing.techmaps.persistence.external;
 
 import com.acing.techmaps.domain.entities.dashboard.Dashboard;
 import com.acing.techmaps.usecases.dashboard.gateway.DashboardDAO;
-import com.acing.techmaps.web.exception.ResourceNotFoundException;
+import com.acing.techmaps.web.exception.HttpException;
 import com.fasterxml.uuid.Generators;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -45,7 +46,7 @@ public class DashboardDAOImpl implements DashboardDAO {
                     this::mapperDashboardFromRs, id);
 
             if (Objects.isNull(dashboard)) {
-                throw new ResourceNotFoundException("Could not find dashboard with id: " + id);
+                throw new HttpException(HttpStatus.NOT_FOUND, "Could not find dashboard with id: " + id);
             }
 
             return Optional.of(dashboard);
@@ -61,7 +62,7 @@ public class DashboardDAOImpl implements DashboardDAO {
                     this::mapperDashboardFromRs, userId);
 
             if (Objects.isNull(dashboard)) {
-                throw new ResourceNotFoundException("Could not find dashboard with user id: " + userId);
+                throw new HttpException(HttpStatus.NOT_FOUND, "Could not find dashboard with user id: " + userId);
             }
 
             return Optional.of(dashboard);
