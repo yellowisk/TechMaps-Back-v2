@@ -6,6 +6,7 @@ application:
     refreshTokenExpirationAfterDays: 14
 
 server:
+  port: 8757
   error:
     include-message: always
 
