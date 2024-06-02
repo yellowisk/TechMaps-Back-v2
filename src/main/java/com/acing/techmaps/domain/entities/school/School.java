@@ -11,6 +11,14 @@ public class School {
         this.name = name;
     }
 
+    public School(String name) {
+        this.name = name;
+    }
+
+    public static School fromRequest(String name) {
+        return new School(name);
+    }
+
     public UUID getId() {
         return id;
     }
