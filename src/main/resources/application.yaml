@@ -63,5 +63,20 @@ queries:
       exists:
         dashboard-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.dashboard WHERE id = ?)
-    roadmpa-dao:
+    roadmap-dao:
+      insert:
+        roadmap: >
+          INSERT INTO techmaps_platform.roadmap (id, name, language)
+          VALUES (?, ?, ?::techmaps_platform.language)
+      select:
+        roadmap-by-id: >
+          SELECT * FROM techmaps_platform.roadmap WHERE id = ?
+        roadmap-by-name: >
+          SELECT * FROM techmaps_platform.roadmap WHERE name = ?
+      update:
+        roadmap: >
+          UPDATE techmaps_platform.roadmap SET name = ?, language = ?::techmaps_platform.language WHERE id = ?
+      exists:
+        roadmap-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.roadmap WHERE id = ?)
     school-dao:

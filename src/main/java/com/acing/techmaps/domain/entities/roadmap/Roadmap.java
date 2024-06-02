@@ -18,6 +18,10 @@ public class Roadmap {
         this.language = language;
     }
 
+    public static Roadmap createFull(UUID id, String name, Language language) {
+        return new Roadmap(id, name, language);
+    }
+
     public static Roadmap fromRequest(String name, String language) {
         return new Roadmap(name, Language.valueOf(language));
     }
