@@ -5,6 +5,7 @@ import com.acing.techmaps.usecases.user.gateway.UserDAO;
 import com.acing.techmaps.web.exception.HttpException;
 import com.fasterxml.uuid.Generators;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -31,6 +32,7 @@ public class UserDAOImpl implements UserDAO {
     private String updateUserQuery;
     @Value("${queries.sql.user-dao.exists.user-by-id}")
     private String existsUserIdQuery;
+
     public UserDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -39,12 +41,17 @@ public class UserDAOImpl implements UserDAO {
     public User add(User user) {
         UUID userId = Generators.timeBasedEpochGenerator().generate();
 
-        jdbcTemplate.update(insertUserQuery, rs -> {
-            rs.setObject(1, userId);
-            rs.setString(2, user.getEmail());
-            rs.setString(3, user.getUsername());
-            rs.setString(4, user.getPassword());
-        });
+        try {
+            jdbcTemplate.update(insertUserQuery, rs -> {
+                rs.setObject(1, userId);
+                rs.setString(2, user.getEmail());
+                rs.setString(3, user.getUsername());
+                rs.setString(4, user.getPassword());
+            });
+        } catch (DuplicateKeyException err) {
+            String duplicatedEntity = err.getMessage().contains("user_email_key") ? "email" : "username";
+            throw new HttpException(HttpStatus.CONFLICT, "Specified " + duplicatedEntity + " is taken", duplicatedEntity + "-duplicated");
+        }
 
         return user.createWithId(userId);
     }
@@ -63,8 +70,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Optional<User> findByEmail(String email) {
         try {
-            User user = jdbcTemplate.queryForObject(selectUserByEmailQuery,
-                    this::mapperUserFromRs, email);
+            User user = jdbcTemplate.queryForObject(selectUserByEmailQuery, this::mapperUserFromRs, email);
 
             if (Objects.isNull(user)) {
                 throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with email: " + email);
@@ -79,8 +85,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Optional<User> findByUsername(String username) {
         try {
-            User user = jdbcTemplate.queryForObject(selectUserByUsernameQuery,
-                    this::mapperUserFromRs, username);
+            User user = jdbcTemplate.queryForObject(selectUserByUsernameQuery, this::mapperUserFromRs, username);
 
             if (Objects.isNull(user)) {
                 throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with username: " + username);
@@ -100,8 +105,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User update(User user) {
-        jdbcTemplate.update(updateUserQuery, user.getEmail(), user.getUsername(),
-                user.getPassword(), user.getId());
+        jdbcTemplate.update(updateUserQuery, user.getEmail(), user.getUsername(), user.getPassword(), user.getId());
 
         return user;
     }
