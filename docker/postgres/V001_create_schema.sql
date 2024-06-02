@@ -145,19 +145,12 @@ ALTER TABLE techmaps_platform.school_roadmap
     ADD CONSTRAINT school_roadmap_roadmap_id_fkey FOREIGN KEY (roadmap_id)
         REFERENCES techmaps_platform.roadmap(id) ON DELETE CASCADE;
 
-DROP TYPE IF EXISTS techmaps_platform.stage_theme CASCADE;
-
-CREATE TYPE techmaps_platform.stage_theme AS ENUM (
-    'PYTHON'
-);
-
 DROP TABLE IF EXISTS techmaps_platform.stage CASCADE;
 
 CREATE TABLE techmaps_platform.stage (
     id uuid NOT NULL,
     roadmap_id uuid NOT NULL,
-    name VARCHAR(255) NOT NULL,
-    theme techmaps_platform.stage_theme NOT NULL
+    name VARCHAR(255) NOT NULL
 );
 
 ALTER TABLE techmaps_platform.stage OWNER TO "techmaps";
