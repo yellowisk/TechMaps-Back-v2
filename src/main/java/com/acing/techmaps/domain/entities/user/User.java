@@ -25,7 +25,7 @@ public class User {
         return new User(id, email, username, password);
     }
 
-    public static User createFromUser(String email, String username, String password) {
+    public static User fromRequest(String email, String username, String password) {
         return new User(email, username, password);
     }
 

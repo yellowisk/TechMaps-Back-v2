@@ -11,7 +11,7 @@ public record UserRequest(String email, String username, String password) {
     }
 
     public User toUser() {
-        return User.createFromUser(email, username, password);
+        return User.fromRequest(email, username, password);
     }
 
 }

@@ -35,7 +35,7 @@ public class Dashboard {
         return new Dashboard(id, userId, totalRoadmaps);
     }
 
-    public static Dashboard createFromDashboard(UUID userId, int totalRoadmaps) {
+    public static Dashboard fromRequest(UUID userId, int totalRoadmaps) {
         return new Dashboard(userId, totalRoadmaps);
     }
 
