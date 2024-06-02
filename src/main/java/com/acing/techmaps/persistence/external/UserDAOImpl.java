@@ -53,16 +53,11 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public Optional<User> findById(UUID id) {
         try {
-            User user = jdbcTemplate.queryForObject(selectUserByIdQuery,
-                    this::mapperUserFromRs, id);
-
-            if(Objects.isNull(user)) {
-                throw new ResourceNotFoundException("Could not find user with id: " + id);
-            }
+            User user = jdbcTemplate.queryForObject(selectUserByIdQuery, this::mapperUserFromRs, id);
 
             return Optional.of(user);
-        } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
+        } catch (EmptyResultDataAccessException err) {
+             throw new ResourceNotFoundException("Could not find user with id: " + id);
         }
     }
 
