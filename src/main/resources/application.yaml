@@ -5,6 +5,11 @@ application:
     tokenExpirationAfterMinutes: 30
     refreshTokenExpirationAfterDays: 14
 
+server:
+  port: 8757
+  error:
+    include-message: always
+
 spring:
   application:
     name: techmaps-v2

@@ -20,7 +20,7 @@ Now connect to the "techmaps" database in the same way you connected to the post
 
 ## Running the Application
 
-After making sure your database is set up and populated, you can run the java file ``src/main/java/com/acing/techmaps/TechMapsApplication.java``
+After making sure your database is set up and populated, you can run the java file ``src/main/java/com/acing/techmaps/TechMapsApplication.java``. The server will start running on <http://localhost:8757>.
 
 Log in with one of the users created and send the generated JWT in all your other requests when using the application. Every 30 minutes, refresh the JWT to keep using the application.
 
