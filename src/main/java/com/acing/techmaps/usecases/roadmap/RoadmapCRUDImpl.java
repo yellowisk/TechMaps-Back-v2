@@ -22,12 +22,12 @@ public class RoadmapCRUDImpl implements RoadmapCRUD{
 
     @Override
     public Roadmap getById(UUID id) {
-        return roadmapDAO.findById(id).get();
+        return roadmapDAO.findById(id);
     }
 
     @Override
     public Roadmap getByName(String name) {
-        return roadmapDAO.findByName(name).get();
+        return roadmapDAO.findByName(name);
     }
 
     @Override

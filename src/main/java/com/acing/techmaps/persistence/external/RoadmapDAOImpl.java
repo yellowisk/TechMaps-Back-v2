@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -43,22 +42,18 @@ public class RoadmapDAOImpl implements RoadmapDAO {
     }
 
     @Override
-    public Optional<Roadmap> findById(UUID id) {
+    public Roadmap findById(UUID id) {
         try {
-            Roadmap roadmap = jdbcTemplate.queryForObject(selectRoadmapByIdQuery, this::mapperRoadmapFromRs, id);
-
-            return Optional.of(roadmap);
+            return jdbcTemplate.queryForObject(selectRoadmapByIdQuery, this::mapperRoadmapFromRs, id);
         } catch (EmptyResultDataAccessException err) {
             throw new HttpException(HttpStatus.NOT_FOUND, "Could not find roadmap with id: " + id);
         }
     }
 
     @Override
-    public Optional<Roadmap> findByName(String name) {
+    public Roadmap findByName(String name) {
         try {
-            Roadmap roadmap = jdbcTemplate.queryForObject(selectRoadmapByNameQuery, this::mapperRoadmapFromRs, name);
-
-            return Optional.of(roadmap);
+            return jdbcTemplate.queryForObject(selectRoadmapByNameQuery, this::mapperRoadmapFromRs, name);
         } catch (EmptyResultDataAccessException err) {
             throw new HttpException(HttpStatus.NOT_FOUND, "Could not find roadmap with name: " + name);
         }

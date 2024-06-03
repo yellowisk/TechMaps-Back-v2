@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -40,34 +38,20 @@ public class DashboardDAOImpl implements DashboardDAO {
     }
 
     @Override
-    public Optional<Dashboard> findById(UUID id) {
+    public Dashboard findById(UUID id) {
         try {
-            Dashboard dashboard = jdbcTemplate.queryForObject(selectDashboardByIdQuery,
-                    this::mapperDashboardFromRs, id);
-
-            if (Objects.isNull(dashboard)) {
-                throw new HttpException(HttpStatus.NOT_FOUND, "Could not find dashboard with id: " + id);
-            }
-
-            return Optional.of(dashboard);
+            return jdbcTemplate.queryForObject(selectDashboardByIdQuery, this::mapperDashboardFromRs, id);
         } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find dashboard with id: " + id);
         }
     }
 
     @Override
-    public Optional<Dashboard> findByUserId(UUID userId) {
+    public Dashboard findByUserId(UUID userId) {
         try {
-            Dashboard dashboard = jdbcTemplate.queryForObject(selectDashboardByUserIdQuery,
-                    this::mapperDashboardFromRs, userId);
-
-            if (Objects.isNull(dashboard)) {
-                throw new HttpException(HttpStatus.NOT_FOUND, "Could not find dashboard with user id: " + userId);
-            }
-
-            return Optional.of(dashboard);
+            return jdbcTemplate.queryForObject(selectDashboardByUserIdQuery, this::mapperDashboardFromRs, userId);
         } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find dashboard with user id: " + userId);
         }
     }
 

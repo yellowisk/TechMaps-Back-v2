@@ -8,11 +8,11 @@ import java.util.UUID;
 public interface UserDAO {
     User add(User user);
 
-    Optional<User> findById(UUID id);
+    User findById(UUID id);
 
-    Optional<User> findByEmail(String email);
+    User findByEmail(String email);
 
-    Optional<User> findByUsername(String email);
+    User findByUsername(String email);
 
     User update(User user);
 

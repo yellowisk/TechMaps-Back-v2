@@ -21,11 +21,11 @@ public class DashboardCRUDImpl implements DashboardCRUD {
 
     @Override
     public Dashboard getById(UUID id) {
-        return dashboardDAO.findById(id).get();
+        return dashboardDAO.findById(id);
     }
 
     @Override
     public Dashboard getByUserId(UUID userId) {
-        return dashboardDAO.findByUserId(userId).get();
+        return dashboardDAO.findByUserId(userId);
     }
 }

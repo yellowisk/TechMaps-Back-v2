@@ -8,9 +8,9 @@ import java.util.UUID;
 public interface RoadmapDAO {
     Roadmap add(Roadmap roadmap);
 
-    Optional<Roadmap> findById(UUID id);
+    Roadmap findById(UUID id);
 
-    Optional<Roadmap> findByName(String name);
+    Roadmap findByName(String name);
 
     Roadmap update(Roadmap roadmap);
 

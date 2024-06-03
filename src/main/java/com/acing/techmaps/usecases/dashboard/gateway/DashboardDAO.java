@@ -8,9 +8,9 @@ import java.util.UUID;
 public interface DashboardDAO {
     Dashboard add(UUID id);
 
-    Optional<Dashboard> findById(UUID id);
+    Dashboard findById(UUID id);
 
-    Optional<Dashboard> findByUserId(UUID userId);
+    Dashboard findByUserId(UUID userId);
 
     Boolean dashboardExists(UUID id);
 }
