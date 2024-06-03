@@ -1,8 +1,8 @@
 insert into techmaps_platform.user(id, email, username, password)
     values('8eb72e1e-532e-4160-a0dd-46332bb40847', 'user@gmail.com', 'user', 'password');
 
-insert into techmaps_platform.dashboard(id, user_id, total_roadmaps, user_since)
-values('018fbc06-ddba-7673-a46c-ff2230be161f', '8eb72e1e-532e-4160-a0dd-46332bb40847', 0, '2021-01-01');
+insert into techmaps_platform.dashboard(id, user_id, total_roadmaps)
+values('018fbc06-ddba-7673-a46c-ff2230be161f', '8eb72e1e-532e-4160-a0dd-46332bb40847', 0);
 
 insert into techmaps_platform.roadmap(id, name, language)
     values('018fbc07-1164-7f3b-887f-0321123a3085', 'Python 101 Roadmap', 'PYTHON');
@@ -19,8 +19,8 @@ insert into techmaps_platform.school_user(id, school_id, user_id, role)
 insert into techmaps_platform.school_roadmap(id, school_id, roadmap_id)
     values('018fbc09-4963-76b7-95f4-a7cfcb2be83f', '018fbc07-83f9-7768-b066-37da3214c0da', '018fbc07-1164-7f3b-887f-0321123a3085');
 
-insert into techmaps_platform.stage(id, roadmap_id, name, theme)
-    values('018fbc0b-7da3-790f-948b-135f7a523df9', '018fbc07-1164-7f3b-887f-0321123a3085', 'Python Basics', 'PYTHON');
+insert into techmaps_platform.stage(id, roadmap_id, name)
+    values('018fbc0b-7da3-790f-948b-135f7a523df9', '018fbc07-1164-7f3b-887f-0321123a3085', 'Python Basics');
 
 insert into techmaps_platform.stage_user(id, stage_id, roadmap_user_id, is_done, position)
     values('018fbc0b-b41c-7d2a-bc7f-cc62b091cd3b', '018fbc0b-7da3-790f-948b-135f7a523df9', '018fbc07-4f47-7227-9e85-91a283fb4d56', false, 1);
