@@ -1,4 +1,4 @@
-application:
+security:
   jwt:
     secretKey: ${secret}
     tokenPrefix: 'Bearer '
@@ -25,7 +25,7 @@ spring:
         ddl-auto: update
       properties:
         hibernate:
-          dialetc: org.hibernate.dialect.PostgreSQLDialect
+          dialect: org.hibernate.dialect.PostgreSQLDialect
           format_sql: true
 
 queries:
