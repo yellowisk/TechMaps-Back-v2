@@ -2,7 +2,6 @@ package com.acing.techmaps.usecases.roadmap.gateway;
 
 import com.acing.techmaps.domain.entities.roadmap.Roadmap;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public interface RoadmapDAO {
