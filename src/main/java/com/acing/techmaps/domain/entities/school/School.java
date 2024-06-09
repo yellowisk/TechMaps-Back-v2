@@ -15,6 +15,10 @@ public class School {
         this.name = name;
     }
 
+    public static School createFull(UUID id, String name) {
+        return new School(id, name);
+    }
+
     public static School fromRequest(String name) {
         return new School(name);
     }

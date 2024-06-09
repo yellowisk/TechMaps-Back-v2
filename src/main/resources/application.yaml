@@ -80,3 +80,17 @@ queries:
         roadmap-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.roadmap WHERE id = ?)
     school-dao:
+      insert:
+        school: >
+          INSERT INTO techmaps_platform.school (id, name) VALUES (?, ?)
+      select:
+        school-by-id: >
+          SELECT * FROM techmaps_platform.school WHERE id = ?
+        school-by-name: >
+          SELECT * FROM techmaps_platform.school WHERE name = ?
+      update:
+          school: >
+              UPDATE techmaps_platform.school SET name = ? WHERE id = ?
+      exists:
+        school-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.school WHERE id = ?)
