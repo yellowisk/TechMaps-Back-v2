@@ -1,0 +1,7 @@
+{
+	"extends": ["config:best-practices"],
+	"labels": ["dependencies"],
+    "rangeStrategy": "pin",
+    "rebaseWhen": "behind-base-branch",
+    "branchPrefix": "renovate/"
+}
