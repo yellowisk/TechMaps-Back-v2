@@ -41,4 +41,4 @@ jobs:
           fi
         done
     - name: Build with Maven
-      run: mvn -B package --file pom.xml
+      run: mvn -B verify --file pom.xml
