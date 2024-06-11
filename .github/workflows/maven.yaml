@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres
+        image: postgres@sha256:1bf73ccae25238fa555100080042f0b2f9be08eb757e200fe6afc1fc413a1b3c
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -21,9 +21,9 @@ jobs:
         env:
           POSTGRES_PASSWORD: postgres
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@0ab4596768b603586c0de567f2430c30f5b0d2b0 # v3
       with:
         java-version: '17'
         distribution: 'temurin'
