@@ -33,6 +33,13 @@
 			<scope>runtime</scope>
             <version>42.7.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.5.0</version>
+			<!-- localhost:8757/swagger-ui/index.html -->
+			<!-- localhost:8757/v3/api-docs -->
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
