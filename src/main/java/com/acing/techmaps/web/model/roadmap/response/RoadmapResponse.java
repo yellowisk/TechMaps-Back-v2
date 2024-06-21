@@ -12,7 +12,7 @@ public record RoadmapResponse(UUID id, String name, Language language) {
         this.language = language;
     }
 
-    public static RoadmapResponse createFromRoadmap(Roadmap roadmap) {
+    public static RoadmapResponse fromRoadmap(Roadmap roadmap) {
         return new RoadmapResponse(
                 roadmap.getId(),
                 roadmap.getName(),
