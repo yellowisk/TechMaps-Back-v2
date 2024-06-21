@@ -1,8 +1,13 @@
 package com.acing.techmaps.domain.entities.dashboard;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Timestamp;
 import java.util.UUID;
 
+@Setter
+@Getter
 public class Dashboard {
     private UUID id;
     private UUID userId;
@@ -14,11 +19,6 @@ public class Dashboard {
         this.totalRoadmaps = totalRoadmaps;
     }
 
-    public Dashboard(UUID userId, int totalRoadmaps, Timestamp userSince) {
-        this.userId = userId;
-        this.totalRoadmaps = totalRoadmaps;
-    }
-
     public Dashboard(UUID userId, int totalRoadmaps) {
         this.userId = userId;
         this.totalRoadmaps = totalRoadmaps;
@@ -26,9 +26,6 @@ public class Dashboard {
 
     public Dashboard(UUID id) {
         this.id = id;
-    }
-
-    public Dashboard() {
     }
 
     public static Dashboard createFull(UUID id, UUID userId, int totalRoadmaps) {
@@ -43,27 +40,4 @@ public class Dashboard {
         return new Dashboard(id);
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    public int getTotalRoadmaps() {
-        return totalRoadmaps;
-    }
-
-    public void setTotalRoadmaps(int totalRoadmaps) {
-        this.totalRoadmaps = totalRoadmaps;
-    }
 }

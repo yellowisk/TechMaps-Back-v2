@@ -1,7 +1,12 @@
 package com.acing.techmaps.domain.entities.school;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Getter
+@Setter
 public class SchoolUser {
     private UUID id;
     private UUID schoolId;
@@ -15,35 +20,17 @@ public class SchoolUser {
         this.role = role;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getSchoolId() {
-        return schoolId;
-    }
-
-    public void setSchoolId(UUID schoolId) {
+    public SchoolUser(UUID schoolId, UUID userId, Role role) {
         this.schoolId = schoolId;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
         this.userId = userId;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
         this.role = role;
+    }
+
+    public static SchoolUser createFull(UUID id, UUID schoolId, UUID userId, Role role) {
+        return new SchoolUser(id, schoolId, userId, role);
+    }
+
+    public static SchoolUser fromRequest(UUID schoolId, UUID userId, String role) {
+        return new SchoolUser(schoolId, userId, Role.valueOf(role));
     }
 }

@@ -1,7 +1,12 @@
 package com.acing.techmaps.domain.entities.roadmap;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Getter
+@Setter
 public class Roadmap {
     private UUID id;
     private String name;
@@ -26,27 +31,4 @@ public class Roadmap {
         return new Roadmap(name, Language.valueOf(language));
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Language getLanguage() {
-        return language;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
 }

@@ -1,7 +1,12 @@
 package com.acing.techmaps.domain.entities.school;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@Getter
+@Setter
 public class School {
     private UUID id;
     private String name;
@@ -23,19 +28,4 @@ public class School {
         return new School(name);
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -1,8 +1,13 @@
 package com.acing.techmaps.domain.entities.roadmap;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.sql.Timestamp;
 import java.util.UUID;
 
+@Getter
+@Setter
 public class RoadmapUser {
     private UUID id;
     private UUID roadmapId;
@@ -20,51 +25,20 @@ public class RoadmapUser {
         this.endTime = endTime;
     }
 
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public UUID getRoadmapId() {
-        return roadmapId;
-    }
-
-    public void setRoadmapId(UUID roadmapId) {
+    public RoadmapUser(UUID roadmapId, UUID userId, Boolean isDone, Timestamp startTime, Timestamp endTime) {
         this.roadmapId = roadmapId;
-    }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
         this.userId = userId;
-    }
-
-    public Boolean getDone() {
-        return isDone;
-    }
-
-    public void setDone(Boolean done) {
-        isDone = done;
-    }
-
-    public Timestamp getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Timestamp startTime) {
+        this.isDone = isDone;
         this.startTime = startTime;
-    }
-
-    public Timestamp getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
+
+    public static RoadmapUser createFull(UUID id, UUID roadmapId, UUID userId, Boolean isDone, Timestamp startTime, Timestamp endTime) {
+        return new RoadmapUser(id, roadmapId, userId, isDone, startTime, endTime);
+    }
+
+    public static RoadmapUser fromRequest(UUID roadmapId, UUID userId, Boolean isDone, Timestamp startTime, Timestamp endTime) {
+        return new RoadmapUser(roadmapId, userId, isDone, startTime, endTime);
+    }
+
 }
