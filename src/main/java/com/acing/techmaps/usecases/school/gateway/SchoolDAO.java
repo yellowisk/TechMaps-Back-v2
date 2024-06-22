@@ -8,7 +8,6 @@ public interface SchoolDAO {
     School add(School school);
     School findById(UUID id);
     School findByName(String name);
-
     School update(School school);
     Boolean schoolExists(UUID id);
 }
