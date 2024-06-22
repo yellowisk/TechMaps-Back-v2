@@ -95,11 +95,11 @@ public class UserDAOImpl implements UserDAO {
     }
 
     private User mapperUserFromRs(ResultSet rs, int rowNum) throws SQLException {
-        UUID id = (UUID) rs.getObject("id");
-        String username = rs.getString("username");
-        String email = rs.getString("email");
-        String password = rs.getString("password");
-
-        return User.createFull(id, email, username, password);
+        return User.createFull(
+                (UUID) rs.getObject("id"),
+                rs.getString("email"),
+                rs.getString("username"),
+                rs.getString("password")
+        );
     }
 }

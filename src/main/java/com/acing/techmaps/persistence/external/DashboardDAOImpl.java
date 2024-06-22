@@ -61,10 +61,10 @@ public class DashboardDAOImpl implements DashboardDAO {
     }
 
     private Dashboard mapperDashboardFromRs(ResultSet rs, int rowNum) throws SQLException {
-        UUID id = (UUID) rs.getObject("id");
-        UUID userId = (UUID) rs.getObject("user_id");
-        int totalRoadmaps = rs.getInt("total_roadmaps");
-
-        return Dashboard.createFull(id, userId, totalRoadmaps);
+        return Dashboard.createFull(
+                (UUID) rs.getObject("id"),
+                (UUID) rs.getObject("user_id"),
+                rs.getInt("total_roadmaps")
+        );
     }
 }

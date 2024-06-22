@@ -75,9 +75,10 @@ public class SchoolDAOImpl implements SchoolDAO {
     }
 
     private School mapperSchoolFromRs(ResultSet rs, int rowNum) throws SQLException {
-        UUID id = (UUID) rs.getObject("id");
-        String name = rs.getString("name");
-        return School.createFull(id, name);
+        return School.createFull(
+                (UUID) rs.getObject("id"),
+                rs.getString("name")
+        );
     }
 
 }

@@ -71,9 +71,10 @@ public class RoadmapDAOImpl implements RoadmapDAO {
     }
 
     public Roadmap mapperRoadmapFromRs(ResultSet rs, int rowNum) throws SQLException {
-        UUID id = (UUID) rs.getObject("id");
-        String name = rs.getString("name");
-        Language language = Language.valueOf(rs.getString("language"));
-        return Roadmap.createFull(id, name, language);
+        return Roadmap.createFull(
+                (UUID) rs.getObject("id"),
+                rs.getString("name"),
+                Language.valueOf(rs.getString("language"))
+        );
     }
 }
