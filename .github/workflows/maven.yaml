@@ -34,7 +34,7 @@ jobs:
       run: |
         for file in docker/postgres/*
         do
-          if [[ "$file" =~ V000 ]]; then
+          if [[ "$file" =~ V0 ]]; then
             psql -h localhost -U postgres postgres -f "$file"
           else
             psql -h localhost -U postgres techmaps -f "$file"
