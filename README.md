@@ -9,14 +9,14 @@
 In IntelliJ Ultimate, open the database tab and connect to your machine's postgresql database.
 
 Then go to the directory postgres/sql where you'll execute the following files:
-- ``V000_setup.sql``
-- ``V001_create_schema.sql``
-- ``V002_populate_schema.sql``
-- ``V004_populate_step_description.sql``
+- ``V0_setup.sql``
+- ``V1_create_schema.sql``
+- ``V2_populate_schema.sql``
+- ``V4_populate_step_description.sql``
 
-Afterwards, select and run all the code in ``V000_setup.sql`` in a session in the DB connection you just made. After successfully running the code in this file you'll have created a database called "techmaps" with an owner "techmaps-app". You should be able to verify it in pgAdmin4.
+Afterwards, select and run all the code in ``V0_setup.sql`` in a session in the DB connection you just made. After successfully running the code in this file you'll have created a database called "techmaps" with an owner "techmaps-app". You should be able to verify it in pgAdmin4.
 
-Now connect to the "techmaps" database in the same way you connected to the postgresql one. Afterwards, select and run all the code in ``V001_create_schema.sql`` in a session in the DB connection you just made. Then repeat the same proccess with the ``V002_populate_schema.sql`` file.
+Now connect to the "techmaps" database in the same way you connected to the postgresql one. Afterwards, select and run all the code in ``V1_create_schema.sql`` in a session in the DB connection you just made. Then repeat the same proccess with the ``V2_populate_schema.sql`` file.
 
 ## Running the Application
 
