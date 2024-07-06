@@ -8,7 +8,7 @@ import java.util.UUID;
 @Getter
 @Setter
 public class Stage {
-    private UUID id;
+    private UUID  id;
     private UUID roadmapId;
     private String name;
 
@@ -23,12 +23,11 @@ public class Stage {
         this.name = name;
     }
 
-    public static Stage createFull(UUID id, UUID roadmapId, String name) {
-        return new Stage(id, roadmapId, name);
-    }
-
     public static Stage fromRequest(UUID roadmapId, String name) {
         return new Stage(roadmapId, name);
     }
 
+    public static Stage createFull(UUID id, UUID roadmapId, String name) {
+        return new Stage(id, roadmapId, name);
+    }
 }
