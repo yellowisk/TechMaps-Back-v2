@@ -115,3 +115,21 @@ queries:
       exists:
         school-user-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.school_user WHERE id = ?)
+    stage-dao:
+      insert:
+        stage: >
+          INSERT INTO techmaps_platform.stage (id, roadmap_id, name) VALUES (?, ?, ?)
+      select:
+        stage-by-id: >
+          SELECT * FROM techmaps_platform.stage WHERE id = ?
+        stage-by-roadmap-id: >
+          SELECT * FROM techmaps_platform.stage WHERE roadmap_id = ?
+      update:
+        name: >
+          UPDATE techmaps_platform.stage SET name = ? WHERE id = ?
+      delete:
+        stage: >
+          DELETE FROM techmaps_platform.stage WHERE id = ?
+      exists:
+        stage-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.stage WHERE id = ?)
