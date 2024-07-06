@@ -10,7 +10,7 @@ public record StageRequest(UUID roadmapId, String name) {
         this.name = name;
     }
 
-    public Stage toStage(UUID roadmapId, String name) {
+    public Stage toStage() {
         return Stage.fromRequest(roadmapId, name);
     }
 
