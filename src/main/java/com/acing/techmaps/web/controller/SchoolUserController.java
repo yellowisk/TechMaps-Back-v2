@@ -18,36 +18,36 @@ public class SchoolUserController {
         this.schoolUserCRUD = schoolUserCRUD;
     }
 
-    @PostMapping("api/v1/school-user")
+    @PostMapping("api/v1/school-users")
     public ResponseEntity<SchoolUserResponse> createSchoolUser(
             @RequestBody SchoolUserRequest request) {
         return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.create(request)));
     }
 
-    @GetMapping("api/v1/school-user/id/{schoolUserId}")
+    @GetMapping("api/v1/school-users/id/{schoolUserId}")
     public ResponseEntity<SchoolUserResponse> getSchoolUserById(@PathVariable  UUID schoolUserId) {
         return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.getById(schoolUserId)));
     }
 
-    @GetMapping("api/v1/school-user/school/{schoolId}")
+    @GetMapping("api/v1/school-users/school/{schoolId}")
     public ResponseEntity<List<SchoolUserResponse>> getSchoolUserBySchoolId(@PathVariable UUID schoolId) {
         return ResponseEntity.ok(schoolUserCRUD.getBySchoolId(schoolId)
                 .stream().map(SchoolUserResponse::fromSchoolUser).toList());
     }
 
-    @GetMapping("api/v1/school-user/user/{userId}")
+    @GetMapping("api/v1/school-users/user/{userId}")
     public ResponseEntity<List<SchoolUserResponse>> getSchoolUserByUserId(@PathVariable UUID userId) {
         return ResponseEntity.ok(schoolUserCRUD.getByUserId(userId)
                 .stream().map(SchoolUserResponse::fromSchoolUser).toList());
     }
 
-    @PatchMapping("api/v1/school-user/{schoolUserId}/role/{role}")
+    @PatchMapping("api/v1/school-users/{schoolUserId}/role/{role}")
     public ResponseEntity<SchoolUserResponse> updateSchoolUserRole(
             @PathVariable UUID schoolUserId, @PathVariable String role) {
         return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.updateRole(schoolUserId, role)));
     }
 
-    @DeleteMapping("api/v1/school-user/{schoolUserId}")
+    @DeleteMapping("api/v1/school-users/{schoolUserId}")
     public ResponseEntity<Void> deleteSchoolUser(@PathVariable UUID schoolUserId) {
         schoolUserCRUD.delete(schoolUserId);
         return ResponseEntity.noContent().build();
