@@ -115,6 +115,23 @@ queries:
       exists:
         school-user-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.school_user WHERE id = ?)
+    school-roadmap-dao:
+      insert:
+        school-roadmap: >
+          INSERT INTO techmaps_platform.school_roadmap (id, school_id, roadmap_id) VALUES (?, ?, ?)
+      select:
+        school-roadmap-by-id: >
+          SELECT * FROM techmaps_platform.school_roadmap WHERE id = ?
+        school-roadmap-by-school-id: >
+          SELECT * FROM techmaps_platform.school_roadmap WHERE school_id = ?
+        school-roadmap-by-roadmap-id: >
+          SELECT * FROM techmaps_platform.school_roadmap WHERE roadmap_id = ?
+      delete:
+        school-roadmap: >
+          DELETE FROM techmaps_platform.school_roadmap WHERE id = ?
+      exists:
+        school-roadmap-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.school_roadmap WHERE id = ?)
     stage-dao:
       insert:
         stage: >
