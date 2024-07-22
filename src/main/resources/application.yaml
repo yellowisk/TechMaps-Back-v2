@@ -150,3 +150,18 @@ queries:
       exists:
         stage-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.stage WHERE id = ?)
+    step-dao:
+      insert:
+        step: >
+          INSERT INTO techmaps_platform.step (id, task_id, position, text, link) VALUES (?, ?, ?, ?, ?)
+      select:
+        step-by-id: >
+          SELECT * FROM techmaps_platform.step WHERE id = ?
+        step-by-task-id: >
+          SELECT * FROM techmaps_platform.step WHERE task_id = ?
+      update:
+        step: >
+          UPDATE techmaps_platform.step SET position = ?, text = ?, link = ?
+      delete:
+        step: >
+          DELETE FROM techmaps_platform.step WHERE id = ?
