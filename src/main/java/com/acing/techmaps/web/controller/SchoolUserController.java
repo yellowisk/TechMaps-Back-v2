@@ -18,12 +18,6 @@ public class SchoolUserController {
         this.schoolUserCRUD = schoolUserCRUD;
     }
 
-    @PostMapping("api/v1/school-users")
-    public ResponseEntity<SchoolUserResponse> createSchoolUser(
-            @RequestBody SchoolUserRequest request) {
-        return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.create(request)));
-    }
-
     @GetMapping("api/v1/school-users/id/{schoolUserId}")
     public ResponseEntity<SchoolUserResponse> getSchoolUserById(@PathVariable  UUID schoolUserId) {
         return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.getById(schoolUserId)));
@@ -39,6 +33,12 @@ public class SchoolUserController {
     public ResponseEntity<List<SchoolUserResponse>> getSchoolUserByUserId(@PathVariable UUID userId) {
         return ResponseEntity.ok(schoolUserCRUD.getByUserId(userId)
                 .stream().map(SchoolUserResponse::fromSchoolUser).toList());
+    }
+
+    @PostMapping("api/v1/school-users")
+    public ResponseEntity<SchoolUserResponse> createSchoolUser(
+            @RequestBody SchoolUserRequest request) {
+        return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.create(request)));
     }
 
     @PatchMapping("api/v1/school-users/{schoolUserId}/role/{role}")

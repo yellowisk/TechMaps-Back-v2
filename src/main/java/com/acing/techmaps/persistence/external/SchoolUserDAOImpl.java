@@ -67,7 +67,7 @@ public class SchoolUserDAOImpl implements SchoolUserDAO {
         try {
             return jdbcTemplate.query(selectSchoolUserBySchoolIdQuery, this::mapperSchoolUserFromRs, schoolId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-user with school id: " + schoolId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-users with school id: " + schoolId);
         }
     }
 
@@ -76,7 +76,7 @@ public class SchoolUserDAOImpl implements SchoolUserDAO {
         try {
             return jdbcTemplate.query(selectSchoolUserByUserIdQuery, this::mapperSchoolUserFromRs, userId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-user with user id: " + userId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-users with user id: " + userId);
         }
     }
 

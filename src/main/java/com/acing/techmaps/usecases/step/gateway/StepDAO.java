@@ -11,5 +11,4 @@ public interface StepDAO {
     List<Step> findByTask(UUID taskId);
     Step update(Step step);
     void delete(Step step);
-    // stepExists not implemented
 }

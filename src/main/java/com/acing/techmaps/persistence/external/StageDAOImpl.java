@@ -63,7 +63,7 @@ public class StageDAOImpl implements StageDAO {
         try {
             return jdbcTemplate.query(selectStageByRoadmapQuery, this::mapperStageFromRs, roadmapId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find stage with roadmapId: " + roadmapId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find stages with roadmapId: " + roadmapId);
         }
     }
 

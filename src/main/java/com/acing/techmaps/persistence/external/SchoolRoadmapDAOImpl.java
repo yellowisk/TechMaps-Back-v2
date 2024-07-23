@@ -63,7 +63,7 @@ public class SchoolRoadmapDAOImpl implements SchoolRoadmapDAO {
         try {
             return jdbcTemplate.query(selectSchoolRoadmapBySchoolIdQuery, this::mapperSchoolRoadmapFromRs, schoolId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-roadmap with school id: " + schoolId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-roadmaps with school id: " + schoolId);
         }
     }
 
@@ -72,7 +72,7 @@ public class SchoolRoadmapDAOImpl implements SchoolRoadmapDAO {
         try {
             return jdbcTemplate.query(selectSchoolRoadmapByRoadmapIdQuery, this::mapperSchoolRoadmapFromRs, roadmapId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-roadmap with roadmap id: " + roadmapId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find school-roadmaps with roadmap id: " + roadmapId);
         }
     }
 

@@ -57,7 +57,7 @@ public class StepDAOImpl implements StepDAO {
         try {
             return jdbcTemplate.query(selectStepByTaskIdQuery, this::mapperStepFromRs, taskId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find step with task id: " + taskId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find steps with task id: " + taskId);
         }
     }
 

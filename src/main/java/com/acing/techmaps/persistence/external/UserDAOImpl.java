@@ -83,15 +83,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Boolean userExists(UUID id) {
-        Boolean exists = jdbcTemplate.queryForObject(existsUserIdQuery, Boolean.class, id);
-        return Objects.nonNull(exists) && exists;
-    }
-
-    @Override
     public User update(User user) {
         jdbcTemplate.update(updateUserQuery, user.getEmail(), user.getUsername(), user.getPassword(), user.getId());
         return user;
+    }
+
+    @Override
+    public Boolean userExists(UUID id) {
+        Boolean exists = jdbcTemplate.queryForObject(existsUserIdQuery, Boolean.class, id);
+        return Objects.nonNull(exists) && exists;
     }
 
     private User mapperUserFromRs(ResultSet rs, int rowNum) throws SQLException {
