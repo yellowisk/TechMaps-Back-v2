@@ -150,6 +150,23 @@ queries:
       exists:
         stage-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.stage WHERE id = ?)
+    task-user-dao:
+      insert:
+        task-user: >
+          INSERT INTO techmaps_platform.task_user (id, task_id, roadmap_user_id, is_done) VALUES (?, ?, ?, ?)
+      select:
+        task-user-by-id: >
+          SELECT * FROM techmaps_platform.task_user WHERE id = ?
+        task-user-by-task-id: >
+          SELECT * FROM techmaps_platform.task_user WHERE task_id = ?
+        task-user-by-roadmap-user-id: >
+          SELECT * FROM techmaps_platform.task_user WHERE roadmap_user_id = ?
+      update:
+        task-user-is-done: >
+          UPDATE techmaps_platform.task_user SET is_done = ? WHERE id = ?
+      delete:
+        task-user: >
+          DELETE FROM techmaps_platform.task_user WHERE id = ?
     step-dao:
       insert:
         step: >
