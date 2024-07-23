@@ -26,6 +26,11 @@
 			<artifactId>spring-boot-starter-web</artifactId>
             <version>3.3.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<dependency>
 			<groupId>org.postgresql</groupId>
@@ -40,6 +45,12 @@
 			<!-- localhost:8757/swagger-ui/index.html -->
 			<!-- localhost:8757/v3/api-docs -->
 		</dependency>
+		<dependency>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
