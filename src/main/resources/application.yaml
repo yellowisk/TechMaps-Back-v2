@@ -161,7 +161,7 @@ queries:
           SELECT * FROM techmaps_platform.step WHERE task_id = ?
       update:
         step: >
-          UPDATE techmaps_platform.step SET position = ?, text = ?, link = ?
+          UPDATE techmaps_platform.step SET position = ?, text = ?, link = ? WHERE id = ?
       delete:
         step: >
           DELETE FROM techmaps_platform.step WHERE id = ?

@@ -63,7 +63,7 @@ public class StepDAOImpl implements StepDAO {
 
     @Override
     public Step update(Step step) {
-        jdbcTemplate.update(updateStepQuery, step.getId(), step.getTaskId(), step.getPosition(), step.getText(), step.getLink());
+        jdbcTemplate.update(updateStepQuery, step.getPosition(), step.getText(), step.getLink(), step.getId());
         return Step.createFull(step.getId(), step.getTaskId(), step.getPosition(), step.getText(), step.getLink());
     }
 
