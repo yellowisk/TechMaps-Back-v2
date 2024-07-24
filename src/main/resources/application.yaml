@@ -1,6 +1,7 @@
 security:
   jwt:
-    secretKey: ${secret}
+    privateKey: ${PRIVATE_KEY}
+    publicKey: ${PUBLIC_KEY}
     tokenPrefix: 'Bearer '
     tokenExpirationAfterMinutes: 30
     refreshTokenExpirationAfterDays: 14
