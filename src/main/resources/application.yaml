@@ -1,6 +1,6 @@
 security:
   jwt:
-    secretKey: ${secret}
+    secretKey: ${secret:theItsyBitsySpiderClimbedUpTheWaterspoutDownCameTheRainAndWashedTheSpiderOutTheSunCameOutAndDriedUpAllTheRainAndTheItsyBitsySpiderClimbedUpTheSpoutAgain}
     tokenPrefix: 'Bearer '
     tokenExpirationAfterMinutes: 30
     refreshTokenExpirationAfterDays: 14
