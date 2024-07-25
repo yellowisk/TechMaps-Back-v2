@@ -6,11 +6,6 @@ import com.acing.techmaps.domain.entities.roadmap.Roadmap;
 import java.util.UUID;
 
 public record RoadmapResponse(UUID id, String name, Language language) {
-    public RoadmapResponse(UUID id, String name, Language language) {
-        this.id = id;
-        this.name = name;
-        this.language = language;
-    }
 
     public static RoadmapResponse fromRoadmap(Roadmap roadmap) {
         return new RoadmapResponse(

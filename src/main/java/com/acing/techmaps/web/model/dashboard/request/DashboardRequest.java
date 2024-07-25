@@ -7,11 +7,6 @@ import java.util.UUID;
 
 public record DashboardRequest(UUID userId, int totalRoadmaps) {
 
-    public DashboardRequest(UUID userId, int totalRoadmaps) {
-        this.userId = userId;
-        this.totalRoadmaps = totalRoadmaps;
-    }
-
     public Dashboard toDashboard() {
         return Dashboard.fromRequest(userId, totalRoadmaps);
     }
