@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/v2/schools")
 public class SchoolController {
     private final SchoolCRUD schoolCRUD;
 
@@ -16,22 +17,22 @@ public class SchoolController {
         this.schoolCRUD = schoolCRUD;
     }
 
-    @PostMapping("/api/v1/schools")
+    @PostMapping("")
     public ResponseEntity<SchoolResponse> createSchool(@RequestBody SchoolRequest request) {
         return ResponseEntity.ok(SchoolResponse.fromSchool(schoolCRUD.create(request)));
     }
 
-    @GetMapping("/api/v1/schools/id/{schoolId}")
+    @GetMapping("/id/{schoolId}")
     public ResponseEntity<SchoolResponse> getSchoolById(@PathVariable UUID schoolId) {
         return ResponseEntity.ok(SchoolResponse.fromSchool(schoolCRUD.getById(schoolId)));
     }
 
-    @GetMapping("/api/v1/schools/name/{schoolName}")
+    @GetMapping("/name/{schoolName}")
     public ResponseEntity<SchoolResponse> getSchoolByName(@PathVariable String schoolName) {
         return ResponseEntity.ok(SchoolResponse.fromSchool(schoolCRUD.getByName(schoolName)));
     }
 
-    @PatchMapping("/api/v1/schools/{schoolId}")
+    @PatchMapping("/{schoolId}")
     public ResponseEntity<SchoolResponse> updateSchool(@PathVariable UUID schoolId, @RequestBody SchoolRequest request) {
         return ResponseEntity.ok(SchoolResponse.fromSchool(schoolCRUD.updateSchool(request, schoolId)));
     }
