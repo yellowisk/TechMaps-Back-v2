@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthorizationService implements UserDetailsService {
 
-    UserCRUD userCRUD;
+    private UserCRUD userCRUD;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userCRUD.getByEmail(email);
