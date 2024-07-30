@@ -201,3 +201,18 @@ queries:
       delete:
         step: >
           DELETE FROM techmaps_platform.step WHERE id = ?
+    step-user-dao:
+      insert: >
+        INSERT INTO techmaps_platform.step_user (id, step_id, roadmap_user_id, is_done) VALUES (?, ?, ?, ?)
+      select:
+        by-id: >
+          SELECT * FROM techmaps_platform.step_user WHERE id = ?
+        by-step-id: >
+          SELECT * FROM techmaps_platform.step_user WHERE step_id = ?
+        by-roadmap-user-id: >
+          SELECT * FROM techmaps_platform.step_user WHERE roadmap_user_id = ?
+      update:
+        status: >
+          UPDATE techmaps_platform.step_user SET is_done = ? WHERE id = ?
+      delete: >
+        DELETE FROM techmaps_platform.step_user WHERE id = ?
