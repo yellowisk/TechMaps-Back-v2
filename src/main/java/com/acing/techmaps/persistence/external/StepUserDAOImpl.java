@@ -68,7 +68,7 @@ public class StepUserDAOImpl implements StepUserDAO {
         try {
             return jdbcTemplate.query(selectByRoadmapUserIdQuery, this::mapperFromRs, roadmapUserId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find step-user with user id " + roadmapUserId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find step-user with roadmap-user id " + roadmapUserId);
         }
     }
 
