@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/v2/users")
 public class UserController {
     private final UserCRUD userCRUD;
 
@@ -17,20 +18,13 @@ public class UserController {
         this.userCRUD = userCRUD;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<UserResponse> createUser(@RequestBody UserRequest userRequest) {
-        User user = userCRUD.registerNewUser(userRequest);
-
-        return ResponseEntity.ok(UserResponse.createFromUser(user));
-    }
-
-    @GetMapping("api/v1/users/id/{userId}")
+    @GetMapping("/id/{userId}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable UUID userId) {
         User user = userCRUD.getById(userId);
         return ResponseEntity.ok(UserResponse.createFromUser(user));
     }
 
-    @PatchMapping("api/v1/users/{userId}")
+    @PatchMapping("/{userId}")
     public ResponseEntity<UserResponse> updateUser(@RequestBody UserRequest userRequest,
                                                    @PathVariable UUID userId) {
         User user = userCRUD.update(userRequest, userId);

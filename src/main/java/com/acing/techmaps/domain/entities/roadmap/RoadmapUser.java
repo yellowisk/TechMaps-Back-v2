@@ -25,20 +25,17 @@ public class RoadmapUser {
         this.endTime = endTime;
     }
 
-    public RoadmapUser(UUID roadmapId, UUID userId, Boolean isDone, Timestamp startTime, Timestamp endTime) {
+    public RoadmapUser(UUID roadmapId, UUID userId) {
         this.roadmapId = roadmapId;
         this.userId = userId;
-        this.isDone = isDone;
-        this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     public static RoadmapUser createFull(UUID id, UUID roadmapId, UUID userId, Boolean isDone, Timestamp startTime, Timestamp endTime) {
         return new RoadmapUser(id, roadmapId, userId, isDone, startTime, endTime);
     }
 
-    public static RoadmapUser fromRequest(UUID roadmapId, UUID userId, Boolean isDone, Timestamp startTime, Timestamp endTime) {
-        return new RoadmapUser(roadmapId, userId, isDone, startTime, endTime);
+    public static RoadmapUser fromRequest(UUID roadmapId, UUID userId) {
+        return new RoadmapUser(roadmapId, userId);
     }
 
 }

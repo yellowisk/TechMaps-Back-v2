@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/v2/school-users")
 public class SchoolUserController {
 
     private final SchoolUserCRUD schoolUserCRUD;
@@ -18,36 +19,36 @@ public class SchoolUserController {
         this.schoolUserCRUD = schoolUserCRUD;
     }
 
-    @GetMapping("api/v1/school-users/id/{schoolUserId}")
+    @GetMapping("/id/{schoolUserId}")
     public ResponseEntity<SchoolUserResponse> getSchoolUserById(@PathVariable  UUID schoolUserId) {
         return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.getById(schoolUserId)));
     }
 
-    @GetMapping("api/v1/school-users/school/{schoolId}")
+    @GetMapping("/schools/{schoolId}")
     public ResponseEntity<List<SchoolUserResponse>> getSchoolUserBySchoolId(@PathVariable UUID schoolId) {
         return ResponseEntity.ok(schoolUserCRUD.getBySchoolId(schoolId)
                 .stream().map(SchoolUserResponse::fromSchoolUser).toList());
     }
 
-    @GetMapping("api/v1/school-users/user/{userId}")
+    @GetMapping("/users/{userId}")
     public ResponseEntity<List<SchoolUserResponse>> getSchoolUserByUserId(@PathVariable UUID userId) {
         return ResponseEntity.ok(schoolUserCRUD.getByUserId(userId)
                 .stream().map(SchoolUserResponse::fromSchoolUser).toList());
     }
 
-    @PostMapping("api/v1/school-users")
+    @PostMapping("")
     public ResponseEntity<SchoolUserResponse> createSchoolUser(
             @RequestBody SchoolUserRequest request) {
         return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.create(request)));
     }
 
-    @PatchMapping("api/v1/school-users/{schoolUserId}/role/{role}")
+    @PatchMapping("/{schoolUserId}/role/{role}")
     public ResponseEntity<SchoolUserResponse> updateSchoolUserRole(
             @PathVariable UUID schoolUserId, @PathVariable String role) {
         return ResponseEntity.ok(SchoolUserResponse.fromSchoolUser(schoolUserCRUD.updateRole(schoolUserId, role)));
     }
 
-    @DeleteMapping("api/v1/school-users/{schoolUserId}")
+    @DeleteMapping("/{schoolUserId}")
     public ResponseEntity<Void> deleteSchoolUser(@PathVariable UUID schoolUserId) {
         schoolUserCRUD.delete(schoolUserId);
         return ResponseEntity.noContent().build();

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("api/v2/school-roadmaps")
 public class SchoolRoadmapController {
     private final SchoolRoadmapCRUD schoolRoadmapCRUD;
 
@@ -17,33 +18,33 @@ public class SchoolRoadmapController {
         this.schoolRoadmapCRUD = schoolRoadmapCRUD;
     }
 
-    @PostMapping("api/v1/school-roadmaps")
+    @PostMapping("")
     public ResponseEntity<SchoolRoadmapResponse> createSchoolRoadmap(
             @RequestBody SchoolRoadmapRequest request) {
         return ResponseEntity.ok(SchoolRoadmapResponse.fromSchoolRoadmap(schoolRoadmapCRUD.create(request)));
     }
 
-    @GetMapping("api/v1/school-roadmaps/id/{schoolRoadmapId}")
+    @GetMapping("/id/{schoolRoadmapId}")
     public ResponseEntity<SchoolRoadmapResponse> getSchoolRoadmapById(
             @PathVariable UUID schoolRoadmapId) {
         return ResponseEntity.ok(SchoolRoadmapResponse.fromSchoolRoadmap(schoolRoadmapCRUD.getById(schoolRoadmapId)));
     }
 
-    @GetMapping("api/v1/school-roadmaps/school/{schoolId}")
+    @GetMapping("/schools/{schoolId}")
     public ResponseEntity<List<SchoolRoadmapResponse>> getSchoolRoadmapBySchoolId(
             @PathVariable UUID schoolId) {
         return ResponseEntity.ok(schoolRoadmapCRUD.getBySchoolId(schoolId)
                 .stream().map(SchoolRoadmapResponse::fromSchoolRoadmap).toList());
     }
 
-    @GetMapping("api/v1/school-roadmaps/roadmap/{roadmapId}")
+    @GetMapping("/roadmaps/{roadmapId}")
     public ResponseEntity<List<SchoolRoadmapResponse>> getSchoolRoadmapByRoadmapId(
             @PathVariable UUID roadmapId) {
         return ResponseEntity.ok(schoolRoadmapCRUD.getByRoadmapId(roadmapId)
                 .stream().map(SchoolRoadmapResponse::fromSchoolRoadmap).toList());
     }
 
-    @DeleteMapping("api/v1/school-roadmaps/{schoolRoadmapId}")
+    @DeleteMapping("/{schoolRoadmapId}")
     public ResponseEntity<Void> deleteSchoolRoadmap(
             @PathVariable UUID schoolRoadmapId) {
         schoolRoadmapCRUD.delete(schoolRoadmapId);
