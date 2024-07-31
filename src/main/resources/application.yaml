@@ -216,3 +216,38 @@ queries:
           UPDATE techmaps_platform.step_user SET is_done = ? WHERE id = ?
       delete: >
         DELETE FROM techmaps_platform.step_user WHERE id = ?
+    stage-user-dao:
+      insert:
+        stage-user: >
+          INSERT INTO techmaps_platform.stage_user (id, user id, stage id, is_Completed) VALUES (?, ?, ?, ?)
+      select:
+        stage-user-by-id: >
+          SELECT * FROM techmaps_platform.stage_user WHERE id = ?
+        stage-user-by-user-id: >
+          SELECT * FROM techmaps_platform.user_user WHERE user_id = ?
+        stage-user-by-stage-user-id: >
+          SELECT * FROM techmaps_platform.stage_user WHERE stage_id = ?
+      update:
+        stage-user-is-Completed: >
+          UPDATE techmaps_platform.stage_user SET is_Completed = ? WHERE id = ?
+      delete:
+        stage-user: >
+          DELETE FROM techmaps_platform.stage_user WHERE id = ?
+    task-dao:
+      insert:
+        task: >
+          INSERT INTO techmaps_platform.task(id, task, name) VALUE(?,?,?)
+      select:
+        task-by-id: >
+          SELECT * FROM techmaps_platform.task WHERE id = ?
+        task-by-task: >
+          SELECT * FROM techmaps_platform.task WHERE task = ?
+      update:
+        name: >
+          UPDATE techmaps_platform.task SET name = ? WHERE id = ?
+      delete:
+        task: >
+          DELETE FROM techmaps_platform.task WHERE id = ?
+      exists:
+        task-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.task WHERE id = ?)
