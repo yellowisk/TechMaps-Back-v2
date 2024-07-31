@@ -4,15 +4,15 @@ import com.acing.techmaps.domain.entities.stage.StageUser;
 
 import java.util.UUID;
 
-public record StageUserRequest(UUID stageId, UUID userId) {
-    public StageUserRequest(UUID stageId, UUID userId) {
+public record StageUserRequest(UUID userId, UUID stageId) {
+    public StageUserRequest(UUID userId, UUID stageId) {
         this.stageId = stageId;
         this.userId = userId;
 
     }
 
     public StageUser toStageUser() {
-        return StageUser.fromRequest(stageId, userId);
+        return StageUser.fromRequest(userId, stageId);
     }
 }
 

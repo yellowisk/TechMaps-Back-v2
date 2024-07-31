@@ -30,23 +30,23 @@ public class StageUserDAOImpl implements Stage_UserDAO {
     @Value("${queries.sql.stage-user-dao.select.stage-user-by-id}")
     private String selectStageUserByIdQuery ;
 
-    @Value("${queries.sql.stage-user-dao.select.stage-user-by-stage-user-id}")
+    @Value("${queries.sql.stage-user-dao.select.stage-user-by-user-id}")
     private String selectStageUserByStageUserIdQuery;
 
-    @Value("${queries.sql.stage-user-dao.select.stage-user-by-user-id")
+    @Value("${queries.sql.stage-user-dao.select.stage-user-by-stage-id")
     private String selectStageUserByUserIdQuery;
 
     @Value("${queries.sql.stage-user-dao.update.stage-user-is-Completed}")
-    private String updateStageUserisCompletedQuery;
+    private String updateStageUserCompletedQuery;
 
     @Value("${queries.sql.stage-user-dao.delete.stage-user}")
     private String deleteStageUserQuery;
 
     @Override
-    public StageUser add(StageUser stage_user) {
+    public StageUser add(StageUser stageUser) {
         UUID id = Generators.timeBasedEpochGenerator().generate();
-        jdbcTemplate.update(insertStageUserQuery, id, stage_user.getUserId(), stage_user.getStageId(),stage_user.isCompleted());
-        return StageUser.createFull(id, stage_user.getStageId(),stage_user.getStageId(),stage_user.isCompleted());
+        jdbcTemplate.update(insertStageUserQuery, id, stageUser.getUserId(), stageUser.getStageId(),stageUser.getIsCompleted());
+        return StageUser.createFull(id, stageUser.getStageId(),stageUser.getStageId(),stageUser.getIsCompleted());
     }
 
     @Override
@@ -59,7 +59,7 @@ public class StageUserDAOImpl implements Stage_UserDAO {
     }
 
     @Override
-    public StageUser findByStageId(UUID userId) {
+    public StageUser findByUserId(UUID userId) {
         try {
             return jdbcTemplate.queryForObject(selectStageUserByUserIdQuery, this::mapperStageUserFromRs, userId);
         } catch (EmptyResultDataAccessException err) {
@@ -68,18 +68,18 @@ public class StageUserDAOImpl implements Stage_UserDAO {
     }
 
     @Override
-    public List<StageUser> findByUserId(UUID stageId) {
+    public List<StageUser> findByStageId(UUID stageId) {
         try {
             return jdbcTemplate.query( selectStageUserByStageUserIdQuery, this::mapperStageUserFromRs, stageId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find task-users with roadmapUserId: " + stageId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find task-users with StageId: " + stageId);
         }
     }
 
     @Override
-    public StageUser update(StageUser stage_user) {
-        jdbcTemplate.update(updateStageUserisCompletedQuery, stage_user.isCompleted(), stage_user.getId());
-        return stage_user;
+    public StageUser update(StageUser stageUser) {
+        jdbcTemplate.update(updateStageUserCompletedQuery, stageUser.getIsCompleted(), stageUser.getId());
+        return stageUser;
     }
 
     @Override
@@ -90,8 +90,8 @@ public class StageUserDAOImpl implements Stage_UserDAO {
     private StageUser mapperStageUserFromRs(ResultSet rs, int rowNum) throws SQLException {
         return StageUser.createFull(
                 (UUID) rs.getObject("id"),
-                (UUID) rs.getObject("stage_id"),
                 (UUID) rs.getObject("user_id"),
+                (UUID) rs.getObject("stage_id"),
                 rs.getBoolean("is_Completed")
         );
     }

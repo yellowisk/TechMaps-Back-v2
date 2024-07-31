@@ -9,9 +9,9 @@ import java.util.UUID;
 @Setter
 public class StageUser {
     private UUID id;
-    private UUID stageId;
     private UUID userId;
-    private boolean isCompleted;
+    private UUID stageId;
+    private Boolean isCompleted;
 
     public StageUser(UUID id, UUID stageId, UUID userId, boolean isCompleted) {
         this.id = id;
@@ -26,7 +26,7 @@ public class StageUser {
     }
 
     public static StageUser createFull(UUID id, UUID stageId, UUID userId, boolean isCompleted) {
-        return new StageUser(id, stageId, userId, isCompleted);
+        return new StageUser(id, userId, stageId, isCompleted);
     }
     public static StageUser fromRequest(UUID stageId, UUID userId) {
         return new StageUser(stageId, userId);

@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.UUID;
 
 public interface Stage_UserDAO {
-    StageUser add(StageUser stage_user);
+    StageUser add(StageUser stageUser);
     StageUser findById(UUID id);
-    StageUser findByStageId(UUID stageId);
-    List<StageUser> findByUserId(UUID userId);
-    StageUser update(StageUser stage_user);
-    void delete(StageUser stage_user);
+    StageUser findByUserId(UUID userId);
+    List<StageUser> findByStageId(UUID stageId);
+    StageUser update(StageUser stageUser);
+    void delete(StageUser stageUser);
 }
