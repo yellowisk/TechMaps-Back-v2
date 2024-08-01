@@ -29,5 +29,8 @@ public class Task {
     public static Task createFull(UUID id, UUID task, String name) {
         return new Task(id, task, name);
     }
+<<<<<<< HEAD
 //só para aparecer
+=======
+>>>>>>> 57a37660c66285f13e2eba2a805f51a04f2250dc
 }

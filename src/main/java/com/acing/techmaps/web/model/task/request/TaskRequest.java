@@ -13,4 +13,7 @@ public record TaskRequest(UUID task, String name) {
         return Task.fromRequest(task,name);
     }
 }
+<<<<<<< HEAD
 //só para aparecer
+=======
+>>>>>>> 57a37660c66285f13e2eba2a805f51a04f2250dc

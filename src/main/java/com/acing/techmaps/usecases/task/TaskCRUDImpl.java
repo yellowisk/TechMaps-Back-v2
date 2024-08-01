@@ -44,5 +44,8 @@ public class TaskCRUDImpl  implements TaskCRUD{
         Task task = taskDAO.findById(id);
         taskDAO.delete(task);
     }
+<<<<<<< HEAD
 //só para aparecer
+=======
+>>>>>>> 57a37660c66285f13e2eba2a805f51a04f2250dc
 }
