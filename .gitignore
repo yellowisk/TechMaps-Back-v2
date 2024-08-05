@@ -11,3 +11,9 @@ target/
 
 ### ENV ###
 .env
+
+### Eclipse JDT LS ###
+/.classpath
+/.factorypath
+/.project
+/.settings/
