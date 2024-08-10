@@ -191,7 +191,7 @@ CREATE TABLE techmaps_platform.task(
     id uuid NOT NULL,
     stage_id uuid NOT NULL,
     title varchar(255) NOT NULL,
-    description varchar(255) NOT NULL,
+    description varchar NOT NULL,
     position int NOT NULL
 );
 
