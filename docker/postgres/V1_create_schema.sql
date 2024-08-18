@@ -8,9 +8,9 @@ DROP TABLE IF EXISTS techmaps_platform.user CASCADE;
 
 CREATE TABLE techmaps_platform.user (
     id uuid NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL
+    email varchar NOT NULL UNIQUE,
+    username varchar NOT NULL UNIQUE,
+    password varchar NOT NULL
 );
 
 ALTER TABLE techmaps_platform.user OWNER TO "techmaps";
@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS techmaps_platform.roadmap CASCADE;
 
 CREATE TABLE techmaps_platform.roadmap (
     id uuid NOT NULL,
-    name VARCHAR(255) NOT NULL,
+    name varchar NOT NULL,
     language techmaps_platform.language NOT NULL
 );
 
@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS techmaps_platform.school CASCADE;
 
 CREATE TABLE techmaps_platform.school (
     id uuid NOT NULL,
-    name VARCHAR(255) NOT NULL
+    name varchar NOT NULL
 );
 
 ALTER TABLE techmaps_platform.school OWNER TO "techmaps";
@@ -150,7 +150,7 @@ DROP TABLE IF EXISTS techmaps_platform.stage CASCADE;
 CREATE TABLE techmaps_platform.stage (
     id uuid NOT NULL,
     roadmap_id uuid NOT NULL,
-    name VARCHAR(255) NOT NULL,
+    name varchar NOT NULL,
     position INTEGER NOT NULL
 );
 
@@ -191,7 +191,7 @@ DROP TABLE IF EXISTS techmaps_platform.task CASCADE;
 CREATE TABLE techmaps_platform.task(
     id uuid NOT NULL,
     stage_id uuid NOT NULL,
-    title varchar(255) NOT NULL,
+    title varchar NOT NULL,
     description varchar NOT NULL,
     position int NOT NULL
 );
@@ -231,8 +231,8 @@ CREATE TABLE techmaps_platform.step (
     id uuid NOT NULL,
     task_id uuid NOT NULL,
     position integer NOT NULL,
-    text varchar(255) NOT NULL,
-    link varchar(255) NOT NULL
+    text varchar NOT NULL,
+    link varchar NOT NULL
 );
 
 ALTER TABLE techmaps_platform.step OWNER TO "techmaps";
