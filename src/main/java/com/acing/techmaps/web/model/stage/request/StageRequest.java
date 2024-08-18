@@ -4,10 +4,10 @@ import com.acing.techmaps.domain.entities.stage.Stage;
 
 import java.util.UUID;
 
-public record StageRequest(UUID roadmapId, String name) {
+public record StageRequest(UUID roadmapId, String name, int position) {
 
     public Stage toStage() {
-        return Stage.fromRequest(roadmapId, name);
+        return Stage.fromRequest(roadmapId, name, position);
     }
 
 }

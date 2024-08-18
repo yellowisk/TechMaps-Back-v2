@@ -150,7 +150,8 @@ DROP TABLE IF EXISTS techmaps_platform.stage CASCADE;
 CREATE TABLE techmaps_platform.stage (
     id uuid NOT NULL,
     roadmap_id uuid NOT NULL,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    position INTEGER NOT NULL
 );
 
 ALTER TABLE techmaps_platform.stage OWNER TO "techmaps";

@@ -45,8 +45,8 @@ public class StageDAOImpl implements StageDAO {
     @Override
     public Stage add(Stage stage) {
         UUID id = Generators.timeBasedEpochGenerator().generate();
-        jdbcTemplate.update(insertStageQuery, id, stage.getRoadmapId(), stage.getName());
-        return Stage.createFull(id, stage.getRoadmapId(), stage.getName());
+        jdbcTemplate.update(insertStageQuery, id, stage.getRoadmapId(), stage.getName(), stage.getPosition());
+        return Stage.createFull(id, stage.getRoadmapId(), stage.getName(), stage.getPosition());
     }
 
     @Override
@@ -69,8 +69,8 @@ public class StageDAOImpl implements StageDAO {
 
     @Override
     public Stage update(Stage stage) {
-        jdbcTemplate.update(updateStageNameQuery, stage.getName(), stage.getId());
-        return Stage.createFull(stage.getId(), stage.getRoadmapId(), stage.getName());
+        jdbcTemplate.update(updateStageNameQuery, stage.getName(), stage.getPosition(), stage.getId());
+        return Stage.createFull(stage.getId(), stage.getRoadmapId(), stage.getName(), stage.getPosition());
     }
 
     @Override
@@ -87,7 +87,8 @@ public class StageDAOImpl implements StageDAO {
         return Stage.createFull(
                 (UUID) rs.getObject("id"),
                 (UUID) rs.getObject("roadmap_id"),
-                rs.getString("name")
+                rs.getString("name"),
+                rs.getInt("position")
         );
     }
 

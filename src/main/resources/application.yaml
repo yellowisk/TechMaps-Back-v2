@@ -154,7 +154,7 @@ queries:
     stage-dao:
       insert:
         stage: >
-          INSERT INTO techmaps_platform.stage (id, roadmap_id, name) VALUES (?, ?, ?)
+          INSERT INTO techmaps_platform.stage (id, roadmap_id, name, position) VALUES (?, ?, ?, ?)
       select:
         stage-by-id: >
           SELECT * FROM techmaps_platform.stage WHERE id = ?
@@ -162,7 +162,7 @@ queries:
           SELECT * FROM techmaps_platform.stage WHERE roadmap_id = ?
       update:
         name: >
-          UPDATE techmaps_platform.stage SET name = ? WHERE id = ?
+          UPDATE techmaps_platform.stage SET name = ?, position = ? WHERE id = ?
       delete:
         stage: >
           DELETE FROM techmaps_platform.stage WHERE id = ?

@@ -35,10 +35,11 @@ public class StageController {
                 .stream().map(StageResponse::fromStage).toList());
     }
 
-    @PatchMapping("/{stageId}/name/{name}")
+    @PatchMapping("/{stageId}/name/{name}/position/{position}")
     public ResponseEntity<StageResponse> updateStageName(
-            @PathVariable UUID stageId, @PathVariable String name) {
-        return ResponseEntity.ok(StageResponse.fromStage(stageCRUD.update(stageId, name)));
+            @PathVariable UUID stageId, @PathVariable String name,
+            @PathVariable int position) {
+        return ResponseEntity.ok(StageResponse.fromStage(stageCRUD.update(stageId, name, position)));
     }
 
     @DeleteMapping("/{stageId}")

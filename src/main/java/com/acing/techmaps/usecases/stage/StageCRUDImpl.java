@@ -33,9 +33,10 @@ public class StageCRUDImpl implements StageCRUD {
     }
 
     @Override
-    public Stage update(UUID id, String name) {
+    public Stage update(UUID id, String name, int position) {
         Stage stage = stageDAO.findById(id);
         stage.setName(name);
+        stage.setPosition(position);
         return stageDAO.update(stage);
     }
 

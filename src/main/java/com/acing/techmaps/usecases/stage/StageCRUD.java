@@ -10,6 +10,6 @@ public interface StageCRUD {
     Stage create(StageRequest request);
     Stage getById(UUID id);
     List<Stage> getByRoadmapId(UUID roadmapId);
-    Stage update(UUID id, String name);
+    Stage update(UUID id, String name, int position);
     void delete(UUID id);
 }
