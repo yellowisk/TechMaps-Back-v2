@@ -1,7 +1,7 @@
 package com.acing.techmaps.web.controller;
 
 import com.acing.techmaps.domain.entities.user.User;
-import com.acing.techmaps.security.TokenService;
+import com.acing.techmaps.security.service.TokenService;
 import com.acing.techmaps.usecases.user.UserCRUD;
 import com.acing.techmaps.web.model.user.request.AuthenticationDTO;
 import com.acing.techmaps.web.model.user.request.UserRequest;
