@@ -1,4 +1,4 @@
-package com.acing.techmaps.security;
+package com.acing.techmaps.security.service;
 
 import com.acing.techmaps.domain.entities.user.User;
 import com.acing.techmaps.web.exception.HttpException;
