@@ -3,17 +3,15 @@ package com.acing.techmaps.usecases.school;
 import com.acing.techmaps.domain.entities.school.School;
 import com.acing.techmaps.usecases.school.gateway.SchoolDAO;
 import com.acing.techmaps.web.model.school.request.SchoolRequest;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@AllArgsConstructor
 @Service
 public class SchoolCRUDImpl implements SchoolCRUD {
-    private SchoolDAO schoolDAO;
-
-    public SchoolCRUDImpl(SchoolDAO schoolDAO) {
-        this.schoolDAO = schoolDAO;
-    }
+    private final SchoolDAO schoolDAO;
 
     @Override
     public School create(SchoolRequest request) {
