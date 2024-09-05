@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-
 @AllArgsConstructor
 @Service
 public class SchoolCRUDImpl implements SchoolCRUD {
