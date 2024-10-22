@@ -98,59 +98,61 @@ queries:
       delete:
         roadmap-user: >
           DELETE FROM techmaps_platform.roadmap_user WHERE id = ?
-    school-dao:
+    group-dao:
       insert:
-        school: >
-          INSERT INTO techmaps_platform.school (id, name) VALUES (?, ?)
+        group: >
+          INSERT INTO techmaps_platform.group (id, name, parent_id) VALUES (?, ?, ?)
       select:
-        school-by-id: >
-          SELECT * FROM techmaps_platform.school WHERE id = ?
-        school-by-name: >
-          SELECT * FROM techmaps_platform.school WHERE name = ?
+        group-by-id: >
+          SELECT * FROM techmaps_platform.group WHERE id = ?
+        group-by-name: >
+          SELECT * FROM techmaps_platform.group WHERE name = ?
+        group-by-parent-id: >
+          SELECT * FROM techmaps_platform.group WHERE parent_id = ?
       update:
-          school: >
-              UPDATE techmaps_platform.school SET name = ? WHERE id = ?
+          group: >
+              UPDATE techmaps_platform.group SET name = ?, parent_id = ? WHERE id = ?
       exists:
-        school-by-id: >
-          SELECT EXISTS(SELECT 1 FROM techmaps_platform.school WHERE id = ?)
-    school-user-dao:
+        group-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.group WHERE id = ?)
+    group-user-dao:
       insert:
-        school-user: >
-          INSERT INTO techmaps_platform.school_user (id, school_id, user_id, role)
+        group-user: >
+          INSERT INTO techmaps_platform.group_user (id, group_id, user_id, role)
             VALUES (?, ?, ?, ?::techmaps_platform.role)
       select:
-        school-user-by-id: >
-          SELECT * FROM techmaps_platform.school_user WHERE id = ?
-        school-user-by-school-id: >
-          SELECT * FROM techmaps_platform.school_user WHERE school_id = ?
-        school-user-by-user-id: >
-          SELECT * FROM techmaps_platform.school_user WHERE user_id = ?
+        group-user-by-id: >
+          SELECT * FROM techmaps_platform.group_user WHERE id = ?
+        group-user-by-group-id: >
+          SELECT * FROM techmaps_platform.group_user WHERE group_id = ?
+        group-user-by-user-id: >
+          SELECT * FROM techmaps_platform.group_user WHERE user_id = ?
       update:
         role: >
-          UPDATE techmaps_platform.school_user SET role = ?::techmaps_platform.role WHERE id = ?
+          UPDATE techmaps_platform.group_user SET role = ?::techmaps_platform.role WHERE id = ?
       delete:
-        school-user: >
-          DELETE FROM techmaps_platform.school_user WHERE id = ?
+        group-user: >
+          DELETE FROM techmaps_platform.group_user WHERE id = ?
       exists:
-        school-user-by-id: >
-          SELECT EXISTS(SELECT 1 FROM techmaps_platform.school_user WHERE id = ?)
-    school-roadmap-dao:
+        group-user-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.group_user WHERE id = ?)
+    group-roadmap-dao:
       insert:
-        school-roadmap: >
-          INSERT INTO techmaps_platform.school_roadmap (id, school_id, roadmap_id) VALUES (?, ?, ?)
+        group-roadmap: >
+          INSERT INTO techmaps_platform.group_roadmap (id, group_id, roadmap_id) VALUES (?, ?, ?)
       select:
-        school-roadmap-by-id: >
-          SELECT * FROM techmaps_platform.school_roadmap WHERE id = ?
-        school-roadmap-by-school-id: >
-          SELECT * FROM techmaps_platform.school_roadmap WHERE school_id = ?
-        school-roadmap-by-roadmap-id: >
-          SELECT * FROM techmaps_platform.school_roadmap WHERE roadmap_id = ?
+        group-roadmap-by-id: >
+          SELECT * FROM techmaps_platform.group_roadmap WHERE id = ?
+        group-roadmap-by-group-id: >
+          SELECT * FROM techmaps_platform.group_roadmap WHERE group_id = ?
+        group-roadmap-by-roadmap-id: >
+          SELECT * FROM techmaps_platform.group_roadmap WHERE roadmap_id = ?
       delete:
-        school-roadmap: >
-          DELETE FROM techmaps_platform.school_roadmap WHERE id = ?
+        group-roadmap: >
+          DELETE FROM techmaps_platform.group_roadmap WHERE id = ?
       exists:
-        school-roadmap-by-id: >
-          SELECT EXISTS(SELECT 1 FROM techmaps_platform.school_roadmap WHERE id = ?)
+        group-roadmap-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.group_roadmap WHERE id = ?)
     stage-dao:
       insert:
         stage: >

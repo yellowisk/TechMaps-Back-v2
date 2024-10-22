@@ -1,6 +1,5 @@
 package com.acing.techmaps.persistence.external;
 
-import com.acing.techmaps.domain.entities.school.Role;
 import com.acing.techmaps.domain.entities.stage.Stage;
 import com.acing.techmaps.usecases.stage.gateway.StageDAO;
 import com.acing.techmaps.web.exception.HttpException;

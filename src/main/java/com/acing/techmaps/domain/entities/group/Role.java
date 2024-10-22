@@ -1,4 +1,4 @@
-package com.acing.techmaps.domain.entities.school;
+package com.acing.techmaps.domain.entities.group;
 
 public enum Role {
     OWNER,

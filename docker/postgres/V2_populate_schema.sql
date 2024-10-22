@@ -10,17 +10,20 @@ insert into techmaps_platform.roadmap(id, name, language)
 insert into techmaps_platform.roadmap_user(id, roadmap_id, user_id, is_done, start_time, end_time)
     values('018fbc07-4f47-7227-9e85-91a283fb4d56', '018fbc07-1164-7f3b-887f-0321123a3085', '8eb72e1e-532e-4160-a0dd-46332bb40847', false, '2021-01-01', NULL);
 
-insert into techmaps_platform.school(id, name)
-    values('018fbc07-83f9-7768-b066-37da3214c0da', 'Random School');
+insert into techmaps_platform.group(id, name, parent_id)
+    values ('018fbc07-1164-7f3b-887f-0321123a3085', 'Escola Vitor Meirelles', NULL);
 
-insert into techmaps_platform.school_user(id, school_id, user_id, role)
-    values('018fbc09-80a7-732c-bf74-46bb535cddc3', '018fbc07-83f9-7768-b066-37da3214c0da', '8eb72e1e-532e-4160-a0dd-46332bb40847', 'STUDENT');
+insert into techmaps_platform.group(id, name, parent_id)
+    values ('0192b1e1-396a-79ba-bd30-7edd8e2c32a1', 'Estudos de Python', '018fbc07-1164-7f3b-887f-0321123a3085');
 
-insert into techmaps_platform.school_roadmap(id, school_id, roadmap_id)
-    values('018fbc09-4963-76b7-95f4-a7cfcb2be83f', '018fbc07-83f9-7768-b066-37da3214c0da', '018fbc07-1164-7f3b-887f-0321123a3085');
+insert into techmaps_platform.group_user(id, group_id, user_id)
+    values ('0192b1e3-04be-7d72-b6f5-4c3784c50c17', '018fbc07-1164-7f3b-887f-0321123a3085', '8eb72e1e-532e-4160-a0dd-46332bb40847');
 
-insert into techmaps_platform.stage(id, roadmap_id, name)
-    values('018fbc0b-7da3-790f-948b-135f7a523df9', '018fbc07-1164-7f3b-887f-0321123a3085', 'Python Basics');
+insert into techmaps_platform.group_user(id, group_id, user_id)
+    values ('0192b1e2-3f39-7b5e-a252-c04bda0807b3', '0192b1e1-396a-79ba-bd30-7edd8e2c32a1', '8eb72e1e-532e-4160-a0dd-46332bb40847');
+
+insert into techmaps_platform.stage(id, roadmap_id, name, position)
+    values('018fbc0b-7da3-790f-948b-135f7a523df9', '018fbc07-1164-7f3b-887f-0321123a3085', 'Python Basics', 1);
 
 insert into techmaps_platform.stage_user(id, stage_id, roadmap_user_id, is_done, position)
     values('018fbc0b-b41c-7d2a-bc7f-cc62b091cd3b', '018fbc0b-7da3-790f-948b-135f7a523df9', '018fbc07-4f47-7227-9e85-91a283fb4d56', false, 1);
