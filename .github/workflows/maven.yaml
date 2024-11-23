@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres@sha256:f176fef320ed02c347e9f85352620945547a9a23038f02b57cf7939a198182ae
+        image: postgres@sha256:994cc3113ce004ae73df11f0dbc5088cbe6bb0da1691dd7e6f55474202a4f211
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
