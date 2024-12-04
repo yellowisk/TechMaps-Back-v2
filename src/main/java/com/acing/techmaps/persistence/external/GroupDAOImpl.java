@@ -36,6 +36,9 @@ public class GroupDAOImpl implements GroupDAO {
     @Value("${queries.sql.group-dao.select.group-by-parent-id}")
     private String selectGroupByParentIdQuery;
 
+    @Value("${queries.sql.group-dao.select.group-hierarchy-by-group-id}")
+    private String selectHierarchyByGroupIdQuery;
+
     @Value("${queries.sql.group-dao.update.group}")
     private String updateGroupQuery;
 
@@ -45,7 +48,7 @@ public class GroupDAOImpl implements GroupDAO {
     @Override
     public Group add(Group group) {
         UUID id = Generators.timeBasedEpochGenerator().generate();
-        jdbcTemplate.update(insertGroupQuery, id, group.getName());
+        jdbcTemplate.update(insertGroupQuery, id, group.getName(), group.getParentId());
         return Group.createFull(id, group.getParentId(), group.getName());
     }
 
@@ -68,11 +71,11 @@ public class GroupDAOImpl implements GroupDAO {
     }
 
     @Override
-    public List<Group> findByParentId(UUID parentId) {
+    public List<Group> findGroupHierarchy(UUID groupId) {
         try {
-            return jdbcTemplate.query(selectGroupByParentIdQuery, this::mapperGroupFromRs, parentId);
+            return jdbcTemplate.query(selectHierarchyByGroupIdQuery, this::mapperGroupFromRs, groupId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find groups with parent id: " + parentId);
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find group hierarchy");
         }
     }
 

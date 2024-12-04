@@ -9,7 +9,8 @@ public interface GroupDAO {
     Group add(Group group);
     Group findById(UUID id);
     Group findByName(String name);
-    List<Group> findByParentId(UUID parentId);
+    List<Group> findGroupHierarchy(UUID groupId);
+
     Group update(Group group);
     Boolean groupExists(UUID id);
 }
