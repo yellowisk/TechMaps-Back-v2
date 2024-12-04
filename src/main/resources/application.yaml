@@ -10,6 +10,12 @@ server:
   error:
     include-message: always
 
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+
 spring:
   application:
     name: techmaps-v2
@@ -109,6 +115,17 @@ queries:
           SELECT * FROM techmaps_platform.group WHERE name = ?
         group-by-parent-id: >
           SELECT * FROM techmaps_platform.group WHERE parent_id = ?
+        group-hierarchy-by-group-id: >
+          WITH RECURSIVE group_tree AS (
+            SELECT id, name, parent_id
+            FROM techmaps_platform.group
+            WHERE id = ?
+            UNION
+            SELECT g.id, g.name, g.parent_id
+            FROM techmaps_platform.group g
+            JOIN group_tree gt ON g.id = gt.parent_id
+          )
+          SELECT * FROM group_tree
       update:
           group: >
               UPDATE techmaps_platform.group SET name = ?, parent_id = ? WHERE id = ?
