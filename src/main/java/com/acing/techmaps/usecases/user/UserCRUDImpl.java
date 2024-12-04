@@ -47,12 +47,7 @@ public class UserCRUDImpl implements UserCRUD {
         if (!userDAO.userExists(userId)) {
             throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with id: " + userId);
         }
-
-        User user = userDAO.findById(userId);
-        user.setEmail(request.email());
-        user.setUsername(request.username());
-        user.setPassword(request.password());
-        return userDAO.update(user);
+        return userDAO.update(request.toUser().createWithId(userId));
     }
 
 }
