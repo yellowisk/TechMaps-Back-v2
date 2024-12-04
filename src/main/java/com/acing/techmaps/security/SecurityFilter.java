@@ -23,7 +23,7 @@ public class SecurityFilter extends OncePerRequestFilter{
     private final UserCRUD userCRUD;
     public void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var token = this.recoverToken(request);
-        if(token != null && !tokenService.validateToken(token).isEmpty()){
+        if (token != null) {
             var login = tokenService.validateToken(token);
             UserDetails user = userCRUD.getByEmail(login);
 

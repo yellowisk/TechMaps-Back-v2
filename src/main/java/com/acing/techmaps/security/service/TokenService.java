@@ -39,7 +39,7 @@ public class TokenService {
                     .verify(token)
                     .getSubject();
         } catch (JWTVerificationException exception){
-            return "";
+            throw new HttpException(HttpStatus.UNAUTHORIZED, "Invalid token", exception.getMessage());
         }
     }
 
