@@ -46,4 +46,9 @@ public class TokenService {
     private Instant genExpirationDate(){
         return Instant.now().plusSeconds(1800);
     }
+
+    public String refreshToken(String token){
+        String email = validateToken(token);
+        return generateToken(User.createWithEmail(email));
+    }
 }

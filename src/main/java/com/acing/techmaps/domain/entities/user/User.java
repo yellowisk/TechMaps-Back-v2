@@ -29,6 +29,14 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public User(String email) {
+        this.email = email;
+    }
+
+    public static User createWithEmail(String email) {
+        return new User(email);
+    }
+
     public static User createFull(UUID id, String email, String username, String password) {
         return new User(id, email, username, password);
     }
