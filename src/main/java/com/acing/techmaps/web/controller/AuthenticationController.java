@@ -1,11 +1,13 @@
 package com.acing.techmaps.web.controller;
 
 import com.acing.techmaps.domain.entities.user.User;
+import com.acing.techmaps.security.SecurityFilter;
 import com.acing.techmaps.security.service.TokenService;
 import com.acing.techmaps.usecases.user.UserCRUD;
 import com.acing.techmaps.web.model.user.request.AuthenticationDTO;
 import com.acing.techmaps.web.model.user.request.UserRequest;
 import com.acing.techmaps.web.model.user.response.UserResponse;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +23,7 @@ public class AuthenticationController {
     private AuthenticationManager authenticationManager;
     private UserCRUD userCRUD;
     private TokenService tokenService;
+    private SecurityFilter securityFilter;
 
     @PostMapping("/login")
     public ResponseEntity<UserResponse> login(@RequestBody AuthenticationDTO request) {
@@ -47,6 +50,12 @@ public class AuthenticationController {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", newToken);
         return ResponseEntity.ok().headers(headers).build();
+    }
+
+    @DeleteMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletRequest request) {
+        securityFilter.eraseCredentials(request);
+        return ResponseEntity.noContent().build();
     }
 
 }

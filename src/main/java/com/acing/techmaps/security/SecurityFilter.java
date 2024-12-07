@@ -40,4 +40,13 @@ public class SecurityFilter extends OncePerRequestFilter{
         if(authHeader == null) return null;
         return authHeader.replace("Bearer ", "");
     }
+
+    public void eraseCredentials(HttpServletRequest request) {
+        String token = recoverToken(request);
+        if (token != null) {
+            tokenService.invalidateToken(token);
+        }
+        SecurityContextHolder.getContext().getAuthentication().setAuthenticated(false);
+        SecurityContextHolder.clearContext();
+    }
 }
