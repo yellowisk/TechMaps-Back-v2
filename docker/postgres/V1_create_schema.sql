@@ -79,7 +79,8 @@ DROP TABLE IF EXISTS techmaps_platform.group_user CASCADE;
 CREATE TABLE techmaps_platform.group_user (
     id uuid NOT NULL PRIMARY KEY,
     group_id uuid NOT NULL REFERENCES techmaps_platform.group(id) ON DELETE CASCADE,
-    user_id uuid NOT NULL REFERENCES techmaps_platform.user(id) ON DELETE CASCADE
+    user_id uuid NOT NULL REFERENCES techmaps_platform.user(id) ON DELETE CASCADE,
+    role techmaps_platform.role NOT NULL
 );
 
 ALTER TABLE techmaps_platform.group_user OWNER TO "techmaps";
