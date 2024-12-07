@@ -3,10 +3,12 @@ package com.acing.techmaps.usecases.group;
 import com.acing.techmaps.domain.entities.group.GroupPost;
 import com.acing.techmaps.usecases.group.gateway.GroupPostDAO;
 import com.acing.techmaps.web.model.group.request.GroupPostRequest;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class GroupPostCRUDImpl implements GroupPostCRUD {
     private final GroupPostDAO groupPostDAO;
 
