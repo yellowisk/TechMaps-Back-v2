@@ -170,6 +170,40 @@ queries:
       exists:
         group-roadmap-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.group_roadmap WHERE id = ?)
+    group-post-dao:
+      insert:
+        group-post: >
+          INSERT INTO techmaps_platform.group_post (id, group_id, user_id, title, text) VALUES (?, ?, ?, ?, ?)
+      select:
+        group-post-by-id: >
+          SELECT * FROM techmaps_platform.group_post WHERE id = ?
+        group-post-by-group-id: >
+          SELECT * FROM techmaps_platform.group_post WHERE group_id = ?
+        group-post-by-user-id: >
+          SELECT * FROM techmaps_platform.group_post WHERE user_id = ?
+      update:
+        group-post: >
+          UPDATE techmaps_platform.group_post SET title = ?, text = ? WHERE id = ?
+      delete:
+        group-post: >
+          DELETE FROM techmaps_platform.group_post WHERE id = ?
+    group-comment-dao:
+      insert:
+        group-comment: >
+          INSERT INTO techmaps_platform.group_comment (id, group_post_id, user_id, text) VALUES (?, ?, ?, ?)
+      select:
+        group-comment-by-id: >
+          SELECT * FROM techmaps_platform.group_comment WHERE id = ?
+        group-comment-by-group-post-id: >
+          SELECT * FROM techmaps_platform.group_comment WHERE group_post_id = ?
+        group-comment-by-user-id: >
+          SELECT * FROM techmaps_platform.group_comment WHERE user_id = ?
+      update:
+        group-comment: >
+          UPDATE techmaps_platform.group_comment SET text = ? WHERE id = ?
+      delete:
+        group-comment: >
+          DELETE FROM techmaps_platform.group_comment WHERE id = ?
     stage-dao:
       insert:
         stage: >
