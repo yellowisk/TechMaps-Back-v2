@@ -1,6 +1,8 @@
 package com.acing.techmaps.usecases.group;
 
 import com.acing.techmaps.domain.entities.group.Group;
+import com.acing.techmaps.domain.entities.group.GroupUser;
+import com.acing.techmaps.domain.entities.group.Role;
 import com.acing.techmaps.domain.entities.user.User;
 import com.acing.techmaps.security.utils.SecurityUtils;
 import com.acing.techmaps.usecases.group.gateway.GroupDAO;
@@ -25,18 +27,21 @@ public class GroupCRUDImpl implements GroupCRUD {
     public Group create(GroupRequest request) {
         User user = securityUtils.getCurrentUser();
         Group group = request.toGroup();
+
         if (group.getParentId() == null) {
             return groupDAO.add(group);
-        } else {
-            boolean isOwnerOrCollaborator = groupUserDAO.findByUser(user.getId()).stream()
-                    .anyMatch(groupUser -> groupUser.getGroupId().equals(group.getParentId()) &&
-                            (groupUser.getRole().equals("OWNER") || groupUser.getRole().equals("COLLABORATOR")));
-            if (!isOwnerOrCollaborator) {
-                throw new IllegalArgumentException("User is not owner or collaborator of parent group");
-            } else {
-                return groupDAO.add(group);
-            }
         }
+
+        Role permission = groupUserDAO.findByUser(user.getId())
+                .stream().filter(groupUser -> groupUser.getGroupId().equals(group.getParentId()))
+                .findFirst().map(GroupUser::getRole).orElse(null);
+        boolean isOwnerOrCollaborator = (permission == Role.OWNER) || (permission == Role.COLLABORATOR);
+
+        if (!isOwnerOrCollaborator) {
+            throw new RuntimeException("User does not have permission to create group");
+        }
+
+        return groupDAO.add(group);
     }
 
     @Override
@@ -62,13 +67,10 @@ public class GroupCRUDImpl implements GroupCRUD {
     }
 
     @Override
-    public Group findParent(UUID groupId) {
+    public Group findRoot(UUID groupId) {
         List<Group> hierarchy = findGroupHierarchy(groupId);
-        System.out.println(hierarchy);
         Map<UUID, Group> groupMap = hierarchy.stream()
                 .collect(Collectors.toMap(Group::getId, group -> group));
-
-        System.out.println(groupMap);
 
         Group childGroup = groupMap.get(groupId);
 
@@ -77,6 +79,18 @@ public class GroupCRUDImpl implements GroupCRUD {
             return null;
         }
 
-        return groupMap.get(childGroup.getParentId());
+        if (childGroup.getParentId() == null) {
+            System.out.println("Parent group is null");
+            return null;
+        }
+
+        UUID parentGroupId = childGroup.getParentId();
+        Group nextGroup = groupMap.get(parentGroupId);
+        while (nextGroup != null && nextGroup.getParentId() != null) {
+            parentGroupId = nextGroup.getParentId();
+            nextGroup = groupMap.get(parentGroupId);
+        }
+
+        return groupMap.get(parentGroupId);
     }
 }

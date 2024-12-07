@@ -11,6 +11,6 @@ public interface GroupCRUD {
     Group getById(UUID id);
     Group getByName(String name);
     Group updateGroup(GroupRequest request, UUID id);
-    Group findParent(UUID groupId);
+    Group findRoot(UUID groupId);
     List<Group> findGroupHierarchy(UUID groupId);
 }
