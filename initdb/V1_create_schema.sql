@@ -1,3 +1,5 @@
+\c techmaps techmaps-app
+
 DROP SCHEMA IF EXISTS techmaps_platform CASCADE;
 
 CREATE SCHEMA techmaps_platform;
