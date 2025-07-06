@@ -1,30 +1,67 @@
 <p align="center">
-  <img src="src/main/resources/media/techmaps-brand-shortened-logo.png" height="128">
-  <p align="center">TechMaps strives towards providing students roadmaps that cover topics of the software development world.</p>
+  <img src="src/main/resources/media/techmaps-brand-shortened-logo.png" height="128" alt="TechMaps Logo">
 </p>
 
+# What is TechMaps?
 
-## Creating the Database
+**TechMaps** is an open-source project that aims to provide students with roadmaps covering various topics in the software development world.
 
-In IntelliJ Ultimate, open the database tab and connect to your machine's postgresql database.
+This repository's project is built using **Java 22**, the **Spring ecosystem**, and **PostgreSQL**, and it serves as a back-end API for the TechMaps application.
 
-Then go to the directory postgres/sql where you'll execute the following files:
-- ``V0_setup.sql``
-- ``V1_create_schema.sql``
-- ``V2_populate_schema.sql``
-- ``V4_populate_step_description.sql``
+---
 
-Afterwards, select and run all the code in ``V0_setup.sql`` in a session in the DB connection you just made. After successfully running the code in this file you'll have created a database called "techmaps" with an owner "techmaps-app". You should be able to verify it in pgAdmin4.
+# Setting Environment Variables
 
-Now connect to the "techmaps" database in the same way you connected to the postgresql one. Afterwards, select and run all the code in ``V1_create_schema.sql`` in a session in the DB connection you just made. Then repeat the same proccess with the ``V2_populate_schema.sql`` file.
+To run the application, you need to set up some environment variables. You can do this by creating a file named `.env` in the root directory of the project and adding the following lines:
 
-## Running the Application
+```bash
+SECRET_KEY=yout_really_really_strong_secret_key
+```
 
-After making sure your database is set up and populated, you can run the java file ``src/main/java/com/acing/techmaps/TechMapsApplication.java``. The server will start running on <http://localhost:8757>.
+---
 
-Log in with one of the users created and send the generated JWT in all your other requests when using the application. Every 30 minutes, refresh the JWT to keep using the application.
+# Running the Application Through Docker
 
-## Thank you, contributors!
-<a href="https://github.com/yellowisk/TechMaps-API/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=yellowisk/TechMaps-Back-v2">
+To run the application through Docker, you need to have Docker installed on your machine along with **swarm mode enabled**.
+
+To enable swarm mode, run the following command:
+
+```bash
+docker swarm init
+```
+
+Then, open the terminal in the root directory of the project and run the following command to deploy the application:
+
+```bash
+make deploy
+```
+
+To check other commands available in the project's Makefile, you can run:
+
+```bash
+make help
+```
+
+---
+
+# Accessing the Application
+
+Great! The application is now running on:
+
+[http://localhost:8757](http://localhost:8757)
+
+---
+
+# Checking the Documentation
+
+To check the API documentation, you can visit:
+
+[http://localhost:8757/swagger-ui/index.html](http://localhost:8757/swagger-ui/index.html)
+
+---
+
+# Thank you, contributors!
+
+<a href="https://github.com/yellowisk/TechMaps-API/graphs/contributors" target="_blank" rel="noopener noreferrer">
+  <img src="https://contrib.rocks/image?repo=yellowisk/TechMaps-Back-v2" alt="Contributors">
 </a>
