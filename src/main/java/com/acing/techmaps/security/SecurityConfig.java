@@ -40,6 +40,11 @@ public class SecurityConfig {
                             .addLogoutHandler(new SecurityContextLogoutHandler());
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .headers(headers -> headers
+                        .frameOptions(Customizer.withDefaults())
+                        .httpStrictTransportSecurity(Customizer.withDefaults())
+                        .xssProtection(Customizer.withDefaults())
+                )
                 .build();
     }
 
