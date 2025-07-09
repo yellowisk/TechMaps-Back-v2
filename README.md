@@ -15,7 +15,7 @@ This repository's project is built using **Java 22**, the **Spring ecosystem**, 
 To run the application, you need to set up some environment variables. You can do this by creating a file named `.env` in the root directory of the project and adding the following lines:
 
 ```bash
-SECRET_KEY=yout_really_really_strong_secret_key
+SECRET_KEY=your_really_really_strong_secret_key
 ```
 
 ---
