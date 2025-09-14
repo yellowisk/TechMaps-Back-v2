@@ -75,6 +75,15 @@
 			<artifactId>java-uuid-generator</artifactId>
 			<version>5.1.0</version>
 		</dependency>
+
+
+
+		<dependency>
+			<groupId>com.bucket4j</groupId>
+			<artifactId>bucket4j-core</artifactId>
+			<version>8.1.0</version>
+		</dependency> <!--- Implement by reading https://www.baeldung.com/spring-bucket4j -->
+		<!-- or read https://github.com/MarcGiffing/bucket4j-spring-boot-starter/blob/master/examples/caffeine/src/main/java/com/giffing/bucket4j/spring/boot/starter/examples/caffeine/CaffeineApplication.java -->
 	</dependencies>
 
 	<build>
