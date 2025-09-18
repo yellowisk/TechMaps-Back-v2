@@ -41,8 +41,8 @@ queries:
     user-dao:
       insert:
         user: >
-          INSERT INTO techmaps_platform.user (id, email, username, password) 
-          VALUES (?, ?, ?, ?)
+          INSERT INTO techmaps_platform.user (id, email, position, username, password) 
+          VALUES (?, ?, ?::techmaps_platform.position, ?, ?)
       select:
         user-by-id: >
           SELECT * FROM techmaps_platform.user WHERE id = ?
@@ -52,9 +52,16 @@ queries:
           SELECT * FROM techmaps_platform.user WHERE username = ?
           user-by-id: >
           SELECT * FROM techmaps_platform.user WHERE id = ?
+        user-by-position: >
+          SELECT * FROM techmaps_platform.user WHERE position = ?::techmaps_platform.position
       update:
         user: >
           UPDATE techmaps_platform.user SET email = ?, username = ?, password = ? WHERE id = ?
+        position: >
+          UPDATE techmaps_platform.user SET position = ?::techmaps_platform.position WHERE id = ?
+      delete:
+        user: >
+          DELETE FROM techmaps_platform.user WHERE id = ?
       exists:
         user-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.user WHERE id = ?)

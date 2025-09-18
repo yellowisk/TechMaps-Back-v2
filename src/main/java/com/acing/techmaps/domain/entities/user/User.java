@@ -3,9 +3,11 @@ package com.acing.techmaps.domain.entities.user;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -13,18 +15,21 @@ import java.util.UUID;
 public class User implements UserDetails {
     private UUID id;
     private String email;
+    private Position position;
     private String username;
     private String password;
 
-    public User(UUID id, String email, String username, String password) {
+    public User(UUID id, String email, Position position, String username, String password) {
         this.id = id;
         this.email = email;
+        this.position = position;
         this.username = username;
         this.password = password;
     }
 
-    public User(String email, String username, String password) {
+    public User(String email, Position position, String username, String password) {
         this.email = email;
+        this.position = position;
         this.username = username;
         this.password = password;
     }
@@ -37,21 +42,21 @@ public class User implements UserDetails {
         return new User(email);
     }
 
-    public static User createFull(UUID id, String email, String username, String password) {
-        return new User(id, email, username, password);
+    public static User createFull(UUID id, String email, Position position, String username, String password) {
+        return new User(id, email, position, username, password);
     }
 
-    public static User fromRequest(String email, String username, String password) {
-        return new User(email, username, password);
+    public static User fromRequest(String email, Position position, String username, String password) {
+        return new User(email, position, username, password);
     }
 
     public User createWithId(UUID id) {
-        return new User(id, email, username, password);
+        return new User(id, email, position, username, password);
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(STR."ROLE_\{position.name()}"));
     }
 
     @Override

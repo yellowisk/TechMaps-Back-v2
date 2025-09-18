@@ -1,7 +1,7 @@
 \c techmaps techmaps-app
 
-insert into techmaps_platform.user(id, email, username, password)
-    values('8eb72e1e-532e-4160-a0dd-46332bb40847', 'user@gmail.com', 'user', 'password');
+insert into techmaps_platform.user(id, email, position, username, password)
+    values('8eb72e1e-532e-4160-a0dd-46332bb40847', 'user@gmail.com', 'ADMIN', 'user', 'password');
 
 insert into techmaps_platform.dashboard(id, user_id, total_roadmaps)
 values('018fbc06-ddba-7673-a46c-ff2230be161f', '8eb72e1e-532e-4160-a0dd-46332bb40847', 0);

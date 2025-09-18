@@ -14,5 +14,11 @@ public interface UserCRUD {
 
     User getByUsername(String username);
 
+    User getByPosition(String position);
+
     User update(UserRequest request, UUID id);
+
+    User updatePosition(String position, UUID id);
+
+    void deleteUser(UUID id);
 }

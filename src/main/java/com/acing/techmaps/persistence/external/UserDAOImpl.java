@@ -1,5 +1,6 @@
 package com.acing.techmaps.persistence.external;
 
+import com.acing.techmaps.domain.entities.user.Position;
 import com.acing.techmaps.domain.entities.user.User;
 import com.acing.techmaps.usecases.user.gateway.UserDAO;
 import com.acing.techmaps.web.exception.HttpException;
@@ -27,8 +28,14 @@ public class UserDAOImpl implements UserDAO {
     private String selectUserByEmailQuery;
     @Value("${queries.sql.user-dao.select.user-by-username}")
     private String selectUserByUsernameQuery;
+    @Value("${queries.sql.user-dao.select.user-by-position}")
+    private String selectUserByPositionQuery;
     @Value("${queries.sql.user-dao.update.user}")
     private String updateUserQuery;
+    @Value("${queries.sql.user-dao.update.position}")
+    private String updatePositionQuery;
+    @Value("${queries.sql.user-dao.delete.user}")
+    private String deleteUserQuery;
     @Value("${queries.sql.user-dao.exists.user-by-id}")
     private String existsUserIdQuery;
 
@@ -44,8 +51,9 @@ public class UserDAOImpl implements UserDAO {
             jdbcTemplate.update(insertUserQuery, rs -> {
                 rs.setObject(1, userId);
                 rs.setString(2, user.getEmail());
-                rs.setString(3, user.getUsername());
-                rs.setString(4, user.getPassword());
+                rs.setString(3, user.getPosition().name());
+                rs.setString(4, user.getUsername());
+                rs.setString(5, user.getPassword());
             });
         } catch (DuplicateKeyException err) {
             String duplicatedEntity = err.getMessage().contains("user_email_key") ? "email" : "username";
@@ -83,9 +91,33 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
+    public User findByPosition(Position position) {
+        try {
+            return jdbcTemplate.queryForObject(selectUserByPositionQuery, this::mapperUserFromRs, position.name());
+        } catch (EmptyResultDataAccessException e) {
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with position: " + position.name());
+        }
+    }
+
+    @Override
     public User update(User user) {
         jdbcTemplate.update(updateUserQuery, user.getEmail(), user.getUsername(), user.getPassword(), user.getId());
         return user;
+    }
+
+    @Override
+    public User updatePosition(Position position, UUID id) {
+        jdbcTemplate.update(updatePositionQuery, position.name(), id);
+        User user = findById(id);
+        if (Objects.isNull(user)) {
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find user with id: " + id);
+        }
+        return user;
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        jdbcTemplate.update(deleteUserQuery, user.getId());
     }
 
     @Override
@@ -97,6 +129,7 @@ public class UserDAOImpl implements UserDAO {
         return User.createFull(
                 (UUID) rs.getObject("id"),
                 rs.getString("email"),
+                Position.valueOf(rs.getString("position")),
                 rs.getString("username"),
                 rs.getString("password")
         );

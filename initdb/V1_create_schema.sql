@@ -6,11 +6,20 @@ CREATE SCHEMA techmaps_platform;
 
 ALTER SCHEMA techmaps_platform OWNER TO "techmaps";
 
+DROP TYPE IF EXISTS techmaps_platform.user_position CASCADE;
+
+CREATE TYPE techmaps_platform.position AS ENUM (
+    'ADMIN',
+    'EDUCATIONAL',
+    'STUDENT'
+);
+
 DROP TABLE IF EXISTS techmaps_platform.user CASCADE;
 
 CREATE TABLE techmaps_platform.user (
     id uuid NOT NULL PRIMARY KEY,
     email varchar NOT NULL UNIQUE,
+    position techmaps_platform.position NOT NULL,
     username varchar NOT NULL UNIQUE,
     password varchar NOT NULL
 );
@@ -61,9 +70,8 @@ ALTER TABLE techmaps_platform.roadmap_user OWNER TO "techmaps";
 DROP TYPE IF EXISTS techmaps_platform.role CASCADE;
 
 CREATE TYPE techmaps_platform.role AS ENUM (
-    'OWNER',
-    'COLLABORATOR',
-    'STUDENT'
+    'TEACHER',
+    'ASSISTANT'
 );
 
 DROP TABLE IF EXISTS techmaps_platform.group CASCADE;
@@ -82,7 +90,7 @@ CREATE TABLE techmaps_platform.group_user (
     id uuid NOT NULL PRIMARY KEY,
     group_id uuid NOT NULL REFERENCES techmaps_platform.group(id) ON DELETE CASCADE,
     user_id uuid NOT NULL REFERENCES techmaps_platform.user(id) ON DELETE CASCADE,
-    role techmaps_platform.role NOT NULL
+    role techmaps_platform.role
 );
 
 ALTER TABLE techmaps_platform.group_user OWNER TO "techmaps";
