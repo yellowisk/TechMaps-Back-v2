@@ -10,7 +10,10 @@ public interface GroupCRUD {
     Group create(GroupRequest request);
     Group getById(UUID id);
     Group getByName(String name);
-    Group updateGroup(GroupRequest request, UUID id);
+    List<Group> getByCreatorId(UUID creatorId);
+    List<Group> getByParentId(UUID parentId);
     Group findRoot(UUID groupId);
     List<Group> findGroupHierarchy(UUID groupId);
+    Group updateGroup(GroupRequest request, UUID id);
+    void delete(UUID groupId);
 }

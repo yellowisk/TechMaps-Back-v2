@@ -1,12 +1,7 @@
 package com.acing.techmaps.usecases.group;
 
 import com.acing.techmaps.domain.entities.group.Group;
-import com.acing.techmaps.domain.entities.group.GroupUser;
-import com.acing.techmaps.domain.entities.group.Role;
-import com.acing.techmaps.domain.entities.user.User;
-import com.acing.techmaps.security.utils.SecurityUtils;
 import com.acing.techmaps.usecases.group.gateway.GroupDAO;
-import com.acing.techmaps.usecases.group.gateway.GroupUserDAO;
 import com.acing.techmaps.web.model.group.request.GroupRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,26 +15,10 @@ import java.util.stream.Collectors;
 @Service
 public class GroupCRUDImpl implements GroupCRUD {
     private final GroupDAO groupDAO;
-    private final GroupUserDAO groupUserDAO;
-    private final SecurityUtils securityUtils;
 
     @Override
     public Group create(GroupRequest request) {
-        User user = securityUtils.getCurrentUser();
         Group group = request.toGroup();
-
-        if (group.getParentId() == null) {
-            return groupDAO.add(group);
-        }
-
-        Role permission = groupUserDAO.findByUser(user.getId())
-                .stream().filter(groupUser -> groupUser.getGroupId().equals(group.getParentId()))
-                .findFirst().map(GroupUser::getRole).orElse(null);
-        boolean isOwnerOrCollaborator = (permission == Role.OWNER) || (permission == Role.COLLABORATOR);
-
-        if (!isOwnerOrCollaborator) {
-            throw new RuntimeException("User does not have permission to create group");
-        }
 
         return groupDAO.add(group);
     }
@@ -55,10 +34,13 @@ public class GroupCRUDImpl implements GroupCRUD {
     }
 
     @Override
-    public Group updateGroup(GroupRequest request, UUID id) {
-        Group group = request.toGroup();
-        group.setId(id);
-        return groupDAO.update(group);
+    public List<Group> getByCreatorId(UUID creatorId) {
+        return groupDAO.findByCreatorId(creatorId);
+    }
+
+    @Override
+    public List<Group> getByParentId(UUID parentId) {
+        return groupDAO.findByParentId(parentId);
     }
 
     @Override
@@ -92,5 +74,18 @@ public class GroupCRUDImpl implements GroupCRUD {
         }
 
         return groupMap.get(parentGroupId);
+    }
+
+    @Override
+    public Group updateGroup(GroupRequest request, UUID id) {
+        Group group = request.toGroup();
+        group.setId(id);
+        return groupDAO.update(group);
+    }
+
+    @Override
+    public void delete(UUID groupId) {
+        Group group = groupDAO.findById(groupId);
+        groupDAO.delete(group);
     }
 }

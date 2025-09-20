@@ -26,6 +26,21 @@ CREATE TABLE techmaps_platform.user (
 
 ALTER TABLE techmaps_platform.user OWNER TO "techmaps";
 
+DROP TABLE IF EXISTS techmaps_platform.system_invite CASCADE;
+
+CREATE TABLE techmaps_platform.system_invite (
+    id uuid NOT NULL PRIMARY KEY,
+    email varchar NOT NULL UNIQUE,
+    code varchar NOT NULL UNIQUE,
+    position techmaps_platform.position NOT NULL,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);
+
+ALTER TABLE techmaps_platform.system_invite ADD CONSTRAINT check_expires_at CHECK (expires_at > created_at);
+
+ALTER TABLE techmaps_platform.system_invite OWNER TO "techmaps";
+
 DROP TABLE IF EXISTS techmaps_platform.dashboard CASCADE;
 
 CREATE TABLE techmaps_platform.dashboard(
@@ -78,11 +93,28 @@ DROP TABLE IF EXISTS techmaps_platform.group CASCADE;
 
 CREATE TABLE techmaps_platform.group (
     id uuid NOT NULL PRIMARY KEY,
-    name varchar NOT NULL,
-    parent_id uuid REFERENCES techmaps_platform.group(id) ON DELETE CASCADE
+    parent_id uuid REFERENCES techmaps_platform.group(id) ON DELETE CASCADE,
+    creator_id uuid REFERENCES techmaps_platform.user(id) ON DELETE SET NULL,
+    name varchar NOT NULL
 );
 
 ALTER TABLE techmaps_platform.group OWNER TO "techmaps";
+
+DROP TABLE IF EXISTS techmaps_platform.group_invite CASCADE;
+
+CREATE TABLE techmaps_platform.group_invite (
+    id uuid NOT NULL PRIMARY KEY,
+    group_id uuid NOT NULL REFERENCES techmaps_platform.group(id) ON DELETE CASCADE,
+    email varchar NOT NULL,
+    code varchar NOT NULL UNIQUE,
+    role techmaps_platform.role,
+    expires_at TIMESTAMP NOT NULL,
+    created_at TIMESTAMP NOT NULL
+);
+
+ALTER TABLE techmaps_platform.group_invite ADD CONSTRAINT check_group_invite_expires_at CHECK (expires_at > created_at);
+
+ALTER TABLE techmaps_platform.group_invite OWNER TO "techmaps";
 
 DROP TABLE IF EXISTS techmaps_platform.group_user CASCADE;
 

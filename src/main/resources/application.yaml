@@ -65,6 +65,48 @@ queries:
       exists:
         user-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.user WHERE id = ?)
+    system-invite-dao:
+      insert:
+        system-invite:
+          INSERT INTO techmaps_platform.system_invite (id, email, code, position, expires_at, created_at)
+          VALUES (?, ?, ?, ?::techmaps_platform.position, ?, ?)
+      select:
+        system-invite-by-id: >
+          SELECT * FROM techmaps_platform.system_invite WHERE id = ?
+        system-invite-by-email: >
+          SELECT * FROM techmaps_platform.system_invite WHERE email = ?
+        system-invite-by-code: >
+          SELECT * FROM techmaps_platform.system_invite WHERE code = ?
+        all:
+            SELECT * FROM techmaps_platform.system_invite
+      delete:
+          system-invite: >
+              DELETE FROM techmaps_platform.system_invite WHERE id = ?
+      exists:
+        system-invite-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.system_invite WHERE id = ?)
+    group-invite-dao:
+      insert:
+        group-invite:
+          INSERT INTO techmaps_platform.group_invite (id, group_id, email, code, role, expires_at, created_at)
+          VALUES (?, ?, ?, ?, ?::techmaps_platform.role, ?, ?)
+      select:
+        group-invite-by-id: >
+          SELECT * FROM techmaps_platform.group_invite WHERE id = ?
+        group-invite-by-group-id: >
+          SELECT * FROM techmaps_platform.group_invite WHERE group_id = ?
+        group-invite-by-email: >
+          SELECT * FROM techmaps_platform.group_invite WHERE email = ?
+        group-invite-by-code: >
+          SELECT * FROM techmaps_platform.group_invite WHERE code = ?
+        all:
+            SELECT * FROM techmaps_platform.group_invite
+      delete:
+        group-invite: >
+            DELETE FROM techmaps_platform.group_invite WHERE id = ?
+      exists:
+        group-invite-by-id: >
+          SELECT EXISTS(SELECT 1 FROM techmaps_platform.group_invite WHERE id = ?)
     dashboard-dao:
       insert:
         dashboard: >
@@ -116,7 +158,7 @@ queries:
     group-dao:
       insert:
         group: >
-          INSERT INTO techmaps_platform.group (id, name, parent_id) VALUES (?, ?, ?)
+          INSERT INTO techmaps_platform.group (id, name, creator_id, parent_id) VALUES (?, ?, ?, ?)
       select:
         group-by-id: >
           SELECT * FROM techmaps_platform.group WHERE id = ?
@@ -124,20 +166,30 @@ queries:
           SELECT * FROM techmaps_platform.group WHERE name = ?
         group-by-parent-id: >
           SELECT * FROM techmaps_platform.group WHERE parent_id = ?
+        group-by-creator-id: >
+          SELECT * FROM techmaps_platform.group WHERE creator_id = ?
         group-hierarchy-by-group-id: >
-          WITH RECURSIVE group_tree AS (
+          WITH RECURSIVE group_tree(id, name, parent_id) AS (
             SELECT id, name, parent_id
             FROM techmaps_platform.group
             WHERE id = ?
-            UNION
+
+            UNION ALL
+
             SELECT g.id, g.name, g.parent_id
             FROM techmaps_platform.group g
             JOIN group_tree gt ON g.id = gt.parent_id
           )
-          SELECT * FROM group_tree
+          SEARCH DEPTH FIRST BY id SET order_col
+          SELECT id, name, parent_id
+          FROM group_tree
+          ORDER BY order_col;
       update:
           group: >
               UPDATE techmaps_platform.group SET name = ?, parent_id = ? WHERE id = ?
+      delete:
+        group: >
+          DELETE FROM techmaps_platform.group WHERE id = ?
       exists:
         group-by-id: >
           SELECT EXISTS(SELECT 1 FROM techmaps_platform.group WHERE id = ?)
