@@ -1,4 +1,4 @@
-FROM maven:3.9.11-amazoncorretto-24@sha256:798d3016ddb39fdf191ead7eb419a2007213cca57fb266aa449f884fa15dd727 AS build
+FROM maven:3.9.11-amazoncorretto-24@sha256:afcdaefb587e3e225f531f6b67a3f68105d9ea6dd402ec14bfbe560d69eeef0b AS build
 
 COPY src /app/src
 COPY pom.xml /app
