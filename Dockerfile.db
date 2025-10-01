@@ -1,3 +1,3 @@
-FROM postgres:18@sha256:89d2f8737b5e602bec8daac0a4c3c9fde7bec1e306abeb538bbd704579f19efc
+FROM postgres:18@sha256:073e7c8b84e2197f94c8083634640ab37105effe1bc853ca4d5fbece3219b0e8
 
 COPY ./initdb/ /docker-entrypoint-initdb.d/
