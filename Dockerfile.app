@@ -6,7 +6,7 @@ COPY pom.xml /app
 WORKDIR /app
 RUN mvn clean install -DskipTests
 
-FROM amazoncorretto:25
+FROM amazoncorretto:25@sha256:66f5e0947286d8314a878f82bf721c4bc0b7064f3c524601ec2a6a00b1712c32
 
 COPY --from=build /app/target/techmaps-0.0.1-SNAPSHOT.jar /app/app.jar
 
