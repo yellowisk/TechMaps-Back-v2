@@ -73,7 +73,7 @@ public class GroupDAOImpl implements GroupDAO {
         try {
             return jdbcTemplate.query(selectGroupByCreatorIdQuery, this::mapperGroupFromRs, creatorId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find groups for creator with id: \{creatorId}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find groups for creator with id: " + creatorId);
         }
     }
 
@@ -82,7 +82,7 @@ public class GroupDAOImpl implements GroupDAO {
         try {
             return jdbcTemplate.query(selectGroupByParentIdQuery, this::mapperGroupFromRs, parentId);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find groups for parent with id: \{parentId}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find groups for parent with id: " + parentId);
         }
     }
 

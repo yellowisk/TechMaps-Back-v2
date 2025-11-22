@@ -49,7 +49,7 @@ public class GroupInviteDAOImpl implements GroupInviteDAO {
         try {
             return jdbcTemplate.queryForObject(selectGroupInviteByIdQuery, this::mapperGroupInviteFromRs, id);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find group-invite with id: \{id}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find group-invite with id: " + id);
         }
     }
 
@@ -58,7 +58,7 @@ public class GroupInviteDAOImpl implements GroupInviteDAO {
         try {
             return jdbcTemplate.queryForObject(selectGroupInviteByEmailQuery, this::mapperGroupInviteFromRs, email);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find group-invite with email: \{email}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find group-invite with email: " + email);
         }
     }
 
@@ -67,7 +67,7 @@ public class GroupInviteDAOImpl implements GroupInviteDAO {
         try {
             return jdbcTemplate.queryForObject(selectGroupInviteByCodeQuery, this::mapperGroupInviteFromRs, code);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find group-invite with code: \{code}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find group-invite with code: " + code);
         }
     }
 

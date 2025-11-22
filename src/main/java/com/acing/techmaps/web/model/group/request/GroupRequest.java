@@ -4,10 +4,10 @@ import com.acing.techmaps.domain.entities.group.Group;
 
 import java.util.UUID;
 
-public record GroupRequest(UUID parentId, String name) {
+public record GroupRequest(UUID parentId, UUID creatorId, String name) {
 
     public Group toGroup() {
-        return Group.fromRequest(parentId, name);
+        return Group.fromRequest(parentId, creatorId, name);
     }
 
 }

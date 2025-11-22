@@ -34,6 +34,12 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    public User(String email, String username, String password) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
     public User(String email) {
         this.email = email;
     }
@@ -46,8 +52,8 @@ public class User implements UserDetails {
         return new User(id, email, position, username, password);
     }
 
-    public static User fromRequest(String email, Position position, String username, String password) {
-        return new User(email, position, username, password);
+    public static User fromRequest(String email, String username, String password) {
+        return new User(email, username, password);
     }
 
     public User createWithId(UUID id) {
@@ -56,7 +62,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(STR."ROLE_\{position.name()}"));
+        return List.of(new SimpleGrantedAuthority("ROLE_"+position.name()));
     }
 
     @Override

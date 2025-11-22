@@ -52,7 +52,7 @@ public class SystemInviteDAOImpl implements SystemInviteDAO {
         try {
             return jdbcTemplate.queryForObject(selectSystemInviteByIdQuery, this::mapperSystemInviteFromRs, id);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find system-invite with id: \{id}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find system-invite with id: " + id);
         }
     }
 
@@ -61,7 +61,7 @@ public class SystemInviteDAOImpl implements SystemInviteDAO {
         try {
             return jdbcTemplate.queryForObject(selectSystemInviteByEmailQuery, this::mapperSystemInviteFromRs, email);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find system-invite with email: \{email}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find system-invite with email: " + email);
         }
     }
 
@@ -70,7 +70,7 @@ public class SystemInviteDAOImpl implements SystemInviteDAO {
         try {
             return jdbcTemplate.queryForObject(selectSystemInviteByCodeQuery, this::mapperSystemInviteFromRs, code);
         } catch (EmptyResultDataAccessException err) {
-            throw new HttpException(HttpStatus.NOT_FOUND, STR."Could not find system-invite with code: \{code}");
+            throw new HttpException(HttpStatus.NOT_FOUND, "Could not find system-invite with code: " + code);
         }
     }
 
