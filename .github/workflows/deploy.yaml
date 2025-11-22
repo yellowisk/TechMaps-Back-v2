@@ -1,0 +1,20 @@
+name: Deploy Integrity Check
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  verify-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Make Deploy
+        run: make deploy
+        env:
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
