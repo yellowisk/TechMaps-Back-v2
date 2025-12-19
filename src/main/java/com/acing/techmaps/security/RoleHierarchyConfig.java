@@ -9,8 +9,6 @@ public class RoleHierarchyConfig {
 
     @Bean
     public RoleHierarchy roleHierarchy() {
-        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_EDUCATIONAL \n ROLE_EDUCATIONAL > ROLE_STUDENT \n ROLE_STUDENT");
-        return roleHierarchy;
+        return RoleHierarchyImpl.fromHierarchy("ROLE_ADMIN > ROLE_EDUCATIONAL \n ROLE_EDUCATIONAL > ROLE_STUDENT \n ROLE_STUDENT");
     }
 }
