@@ -19,7 +19,7 @@ insert into techmaps_platform.group(id, name, parent_id)
     values ('0192b1e1-396a-79ba-bd30-7edd8e2c32a1', 'Estudos de Python', '018fbc07-1164-7f3b-887f-0321123a3085');
 
 insert into techmaps_platform.group_user(id, group_id, user_id, role)
-    values ('0192b1e3-04be-7d72-b6f5-4c3784c50c17', '018fbc07-1164-7f3b-887f-0321123a3085', '8eb72e1e-532e-4160-a0dd-46332bb40847', 'OWNER');
+    values ('0192b1e3-04be-7d72-b6f5-4c3784c50c17', '018fbc07-1164-7f3b-887f-0321123a3085', '8eb72e1e-532e-4160-a0dd-46332bb40847', 'TEACHER');
 
 insert into techmaps_platform.group_user(id, group_id, user_id, role)
     values ('0192b1e2-3f39-7b5e-a252-c04bda0807b3', '0192b1e1-396a-79ba-bd30-7edd8e2c32a1', '8eb72e1e-532e-4160-a0dd-46332bb40847', 'STUDENT');
