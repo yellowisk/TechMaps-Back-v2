@@ -52,8 +52,8 @@ public class User implements UserDetails {
         return new User(id, email, position, username, password);
     }
 
-    public static User fromRequest(String email, String username, String password) {
-        return new User(email, username, password);
+    public static User fromRequest(String email, String username, Position position, String password) {
+        return new User(email, position, username, password);
     }
 
     public User createWithId(UUID id) {
