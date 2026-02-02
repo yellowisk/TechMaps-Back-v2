@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/group-users")
+@RequestMapping("api/group-users")
 public class GroupUserController {
 
     private final GroupUserCRUD groupUserCRUD;

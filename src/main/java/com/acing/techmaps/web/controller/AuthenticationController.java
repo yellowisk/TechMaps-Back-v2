@@ -17,7 +17,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/v2/auth")
+@RequestMapping("api/auth")
 @AllArgsConstructor
 public class AuthenticationController {
     private AuthenticationManager authenticationManager;

@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v2/tasks")
+@RequestMapping("api/tasks")
 public class TaskController {
     private final TaskCRUD taskCRUD;
 

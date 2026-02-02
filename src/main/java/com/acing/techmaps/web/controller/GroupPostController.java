@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/group-posts")
+@RequestMapping("api/group-posts")
 @AllArgsConstructor
 public class GroupPostController {
     private final GroupPostCRUD groupPostCRUD;

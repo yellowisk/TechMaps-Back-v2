@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/group-comments")
+@RequestMapping("api/group-comments")
 @AllArgsConstructor
 public class GroupCommentController {
     private final GroupCommentCRUD groupCommentCRUD;

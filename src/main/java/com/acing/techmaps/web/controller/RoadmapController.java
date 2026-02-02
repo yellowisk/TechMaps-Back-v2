@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/roadmaps")
+@RequestMapping("api/roadmaps")
 public class RoadmapController {
     private final RoadmapCRUD roadmapCRUD;
 

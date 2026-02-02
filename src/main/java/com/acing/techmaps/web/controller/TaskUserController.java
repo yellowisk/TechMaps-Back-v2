@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/task-users")
+@RequestMapping("api/task-users")
 public class TaskUserController {
     private final TaskUserCRUD taskUserCRUD;
 

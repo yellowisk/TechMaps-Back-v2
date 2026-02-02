@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v2/system-invites")
+@RequestMapping("api/system-invites")
 public class SystemInviteController {
     private final SystemInviteCRUD systemInviteCRUD;
 

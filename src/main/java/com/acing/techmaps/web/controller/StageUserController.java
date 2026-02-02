@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v2/stage-users")
+@RequestMapping("api/stage-users")
 public class StageUserController {
     private final StageUserCRUD stageUserCRUD;
 

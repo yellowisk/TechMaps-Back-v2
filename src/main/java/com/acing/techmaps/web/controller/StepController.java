@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/steps")
+@RequestMapping("api/steps")
 public class StepController {
     private final StepCRUD stepCRUD;
 

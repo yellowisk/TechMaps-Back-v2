@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/stages")
+@RequestMapping("api/stages")
 public class StageController {
 
     private final StageCRUD stageCRUD;

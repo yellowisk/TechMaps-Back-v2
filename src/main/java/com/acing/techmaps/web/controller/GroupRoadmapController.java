@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/group-roadmaps")
+@RequestMapping("api/group-roadmaps")
 public class GroupRoadmapController {
     private final GroupRoadmapCRUD groupRoadmapCRUD;
 

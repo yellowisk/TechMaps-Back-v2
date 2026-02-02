@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v2/dashboards")
+@RequestMapping("api/dashboards")
 public class DashboardController {
     private final DashboardCRUD dashboardCRUD;
 

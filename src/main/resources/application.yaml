@@ -2,7 +2,7 @@ spring:
   config:
     import: optional:configtree:/run/secrets/
   application:
-    name: techmaps-v2
+    name: techmaps
   datasource:
     url: jdbc:postgresql://db:5432/techmaps
     username: techmaps-app

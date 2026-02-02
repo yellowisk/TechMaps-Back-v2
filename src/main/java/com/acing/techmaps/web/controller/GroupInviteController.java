@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v2/group-invites")
+@RequestMapping("api/group-invites")
 public class GroupInviteController {
     private final GroupInviteCRUD groupInviteCRUD;
 

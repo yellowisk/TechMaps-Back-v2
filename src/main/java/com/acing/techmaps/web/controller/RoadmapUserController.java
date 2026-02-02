@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/v2/roadmap-users")
+@RequestMapping("api/roadmap-users")
 public class RoadmapUserController {
 
     private final RoadmapUserCRUD roadmapUserCRUD;
