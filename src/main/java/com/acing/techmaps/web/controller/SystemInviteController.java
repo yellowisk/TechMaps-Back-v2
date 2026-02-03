@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.invite.SystemInviteCRUD;
 import com.acing.techmaps.web.model.invite.request.SystemInviteRequest;
 import com.acing.techmaps.web.model.invite.response.SystemInviteResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +19,7 @@ public class SystemInviteController {
     private final SystemInviteCRUD systemInviteCRUD;
 
     @PostMapping("")
-    public ResponseEntity<SystemInviteResponse> createSystemInvite(@RequestBody SystemInviteRequest request) {
+    public ResponseEntity<SystemInviteResponse> createSystemInvite(@RequestBody @Valid SystemInviteRequest request) {
         return ResponseEntity.ok(SystemInviteResponse.fromSystemInvite(systemInviteCRUD.create(request)));
     }
 

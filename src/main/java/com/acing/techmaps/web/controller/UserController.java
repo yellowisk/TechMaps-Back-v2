@@ -4,6 +4,7 @@ import com.acing.techmaps.domain.entities.user.User;
 import com.acing.techmaps.usecases.user.UserCRUD;
 import com.acing.techmaps.web.model.user.request.UserRequest;
 import com.acing.techmaps.web.model.user.response.UserResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -44,7 +45,7 @@ public class UserController {
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<UserResponse> updateUser(@RequestBody UserRequest userRequest,
+    public ResponseEntity<UserResponse> updateUser(@RequestBody @Valid UserRequest userRequest,
                                                    @PathVariable UUID userId) {
         User user = userCRUD.update(userRequest, userId);
         return ResponseEntity.ok(UserResponse.createFromUser(user));

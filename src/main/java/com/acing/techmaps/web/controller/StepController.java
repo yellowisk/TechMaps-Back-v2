@@ -4,6 +4,7 @@ import com.acing.techmaps.domain.entities.step.Step;
 import com.acing.techmaps.usecases.step.StepCRUD;
 import com.acing.techmaps.web.model.step.request.StepRequest;
 import com.acing.techmaps.web.model.step.response.StepResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class StepController {
     }
 
     @PostMapping("")
-    public ResponseEntity<StepResponse> createStep(@RequestBody StepRequest request) {
+    public ResponseEntity<StepResponse> createStep(@RequestBody @Valid StepRequest request) {
         return ResponseEntity.ok(StepResponse.fromStep(stepCRUD.create(request)));
     }
 
@@ -36,7 +37,7 @@ public class StepController {
     }
 
     @PatchMapping("/{stepId}")
-    public ResponseEntity<StepResponse> updateStep(@PathVariable UUID stepId, @RequestBody StepRequest request) {
+    public ResponseEntity<StepResponse> updateStep(@PathVariable UUID stepId, @RequestBody @Valid StepRequest request) {
         Step step = stepCRUD.update(stepId, request);
         return ResponseEntity.ok(StepResponse.fromStep(step));
     }

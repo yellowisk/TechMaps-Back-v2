@@ -4,6 +4,7 @@ import com.acing.techmaps.usecases.task.TaskCRUD;
 import com.acing.techmaps.web.model.task.request.TaskRequest;
 import com.acing.techmaps.web.model.task.request.TaskUpdateRequest;
 import com.acing.techmaps.web.model.task.response.TaskResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class TaskController {
     private final TaskCRUD taskCRUD;
 
     @PostMapping("")
-    public ResponseEntity<TaskResponse> create(@RequestBody TaskRequest request) {
+    public ResponseEntity<TaskResponse> create(@RequestBody @Valid TaskRequest request) {
         return ResponseEntity.ok(TaskResponse.createFromTask(taskCRUD.create(request)));
     }
 
@@ -34,7 +35,7 @@ public class TaskController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<TaskResponse> updateStatus(@PathVariable UUID id, @RequestBody TaskUpdateRequest request) {
+    public ResponseEntity<TaskResponse> updateStatus(@PathVariable UUID id, @RequestBody @Valid TaskUpdateRequest request) {
         return ResponseEntity.ok(TaskResponse.createFromTask(taskCRUD.update(request, id)));
     }
 

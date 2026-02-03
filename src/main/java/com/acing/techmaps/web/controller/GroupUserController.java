@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.group.GroupUserCRUD;
 import com.acing.techmaps.web.model.group.request.GroupUserRequest;
 import com.acing.techmaps.web.model.group.response.GroupUserResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,7 +39,7 @@ public class GroupUserController {
 
     @PostMapping("")
     public ResponseEntity<GroupUserResponse> createGroupUser(
-            @RequestBody GroupUserRequest request) {
+            @RequestBody @Valid GroupUserRequest request) {
         return ResponseEntity.ok(GroupUserResponse.fromGroupUser(groupUserCRUD.create(request)));
     }
 

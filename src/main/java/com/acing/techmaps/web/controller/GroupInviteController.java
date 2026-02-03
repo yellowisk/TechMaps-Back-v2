@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.invite.GroupInviteCRUD;
 import com.acing.techmaps.web.model.invite.request.GroupInviteRequest;
 import com.acing.techmaps.web.model.invite.response.GroupInviteResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -18,7 +19,7 @@ public class GroupInviteController {
     private final GroupInviteCRUD groupInviteCRUD;
 
     @PostMapping("")
-    public ResponseEntity<GroupInviteResponse> createGroupInvite(@RequestBody GroupInviteRequest request) {
+    public ResponseEntity<GroupInviteResponse> createGroupInvite(@RequestBody @Valid GroupInviteRequest request) {
         return ResponseEntity.ok(GroupInviteResponse.fromGroupInvite(groupInviteCRUD.create(request)));
     }
 

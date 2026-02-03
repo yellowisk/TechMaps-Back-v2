@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.roadmap.RoadmapUserCRUD;
 import com.acing.techmaps.web.model.roadmap.request.RoadmapUserRequest;
 import com.acing.techmaps.web.model.roadmap.response.RoadmapUserResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +38,7 @@ public class RoadmapUserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<RoadmapUserResponse> createRoadmapUser(@RequestBody RoadmapUserRequest request) {
+    public ResponseEntity<RoadmapUserResponse> createRoadmapUser(@RequestBody @Valid RoadmapUserRequest request) {
         return ResponseEntity.ok(RoadmapUserResponse.createFromRoadmapUser(roadmapUserCRUD.create(request)));
     }
 

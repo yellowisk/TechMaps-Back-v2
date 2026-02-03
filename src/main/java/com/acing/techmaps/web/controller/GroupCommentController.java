@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.group.GroupCommentCRUD;
 import com.acing.techmaps.web.model.group.request.GroupCommentRequest;
 import com.acing.techmaps.web.model.group.response.GroupCommentResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class GroupCommentController {
     private final GroupCommentCRUD groupCommentCRUD;
 
     @PostMapping("")
-    public ResponseEntity<GroupCommentResponse> createGroupComment(@RequestBody GroupCommentRequest request) {
+    public ResponseEntity<GroupCommentResponse> createGroupComment(@RequestBody @Valid GroupCommentRequest request) {
         return ResponseEntity.ok(GroupCommentResponse.fromGroupComment(groupCommentCRUD.create(request)));
     }
 
@@ -38,7 +39,7 @@ public class GroupCommentController {
 
     @PatchMapping("/{groupCommentId}")
     public ResponseEntity<GroupCommentResponse> updateGroupComment(@PathVariable UUID groupCommentId,
-                                                                  @RequestBody GroupCommentRequest request) {
+                                                                  @RequestBody @Valid GroupCommentRequest request) {
         return ResponseEntity.ok(GroupCommentResponse.fromGroupComment(groupCommentCRUD.updateComment(request, groupCommentId)));
     }
 

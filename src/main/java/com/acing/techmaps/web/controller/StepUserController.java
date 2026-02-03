@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.step.StepUserCRUD;
 import com.acing.techmaps.web.model.step.request.StepUserRequest;
 import com.acing.techmaps.web.model.step.response.StepUserResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class StepUserController {
     private final StepUserCRUD stepUserCRUD;
 
     @PostMapping("")
-    public ResponseEntity<StepUserResponse> create(@RequestBody StepUserRequest request) {
+    public ResponseEntity<StepUserResponse> create(@RequestBody @Valid StepUserRequest request) {
         return ResponseEntity.ok(StepUserResponse.createFromStepUser(stepUserCRUD.create(request)));
     }
 

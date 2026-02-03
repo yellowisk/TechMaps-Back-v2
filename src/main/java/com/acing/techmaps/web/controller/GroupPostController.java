@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.group.GroupPostCRUD;
 import com.acing.techmaps.web.model.group.request.GroupPostRequest;
 import com.acing.techmaps.web.model.group.response.GroupPostResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class GroupPostController {
     private final GroupPostCRUD groupPostCRUD;
 
     @PostMapping("")
-    public ResponseEntity<GroupPostResponse> createGroupPost(@RequestBody GroupPostRequest request) {
+    public ResponseEntity<GroupPostResponse> createGroupPost(@RequestBody @Valid GroupPostRequest request) {
         return ResponseEntity.ok(GroupPostResponse.fromGroupPost(groupPostCRUD.create(request)));
     }
 
@@ -38,7 +39,7 @@ public class GroupPostController {
 
     @PatchMapping("/{groupPostId}")
     public ResponseEntity<GroupPostResponse> updateGroupPost(@PathVariable UUID groupPostId,
-                                                             @RequestBody GroupPostRequest request) {
+                                                             @RequestBody @Valid GroupPostRequest request) {
         return ResponseEntity.ok(GroupPostResponse.fromGroupPost(groupPostCRUD.updateGroupPost(request, groupPostId)));
     }
 

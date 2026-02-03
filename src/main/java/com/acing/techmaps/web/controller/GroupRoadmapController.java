@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.group.GroupRoadmapCRUD;
 import com.acing.techmaps.web.model.group.request.GroupRoadmapRequest;
 import com.acing.techmaps.web.model.group.response.GroupRoadmapResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class GroupRoadmapController {
 
     @PostMapping("")
     public ResponseEntity<GroupRoadmapResponse> createGroupRoadmap(
-            @RequestBody GroupRoadmapRequest request) {
+            @RequestBody @Valid GroupRoadmapRequest request) {
         return ResponseEntity.ok(GroupRoadmapResponse.fromGroupRoadmap(groupRoadmapCRUD.create(request)));
     }
 

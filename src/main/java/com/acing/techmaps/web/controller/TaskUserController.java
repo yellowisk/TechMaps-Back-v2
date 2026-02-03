@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.task.TaskUserCRUD;
 import com.acing.techmaps.web.model.task.request.TaskUserRequest;
 import com.acing.techmaps.web.model.task.response.TaskUserResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,7 +36,7 @@ public class TaskUserController {
     }
 
     @PostMapping("")
-    public ResponseEntity<TaskUserResponse> createTaskUser(@RequestBody TaskUserRequest request) {
+    public ResponseEntity<TaskUserResponse> createTaskUser(@RequestBody @Valid TaskUserRequest request) {
         return ResponseEntity.ok(TaskUserResponse.createFromTaskUser(taskUserCRUD.create(request)));
     }
 

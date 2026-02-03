@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.group.GroupCRUD;
 import com.acing.techmaps.web.model.group.request.GroupRequest;
 import com.acing.techmaps.web.model.group.response.GroupResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +19,10 @@ public class GroupController {
     public GroupController(GroupCRUD groupCRUD) {
         this.groupCRUD = groupCRUD;
     }
-@PreAuthorize("hasRole('EDUCATIONAL')")
+
+    @PreAuthorize("hasRole('EDUCATIONAL')")
     @PostMapping("")
-    public ResponseEntity<GroupResponse> createGroup(@RequestBody GroupRequest request) {
+    public ResponseEntity<GroupResponse> createGroup(@RequestBody @Valid GroupRequest request) {
         return ResponseEntity.ok(GroupResponse.fromGroup(groupCRUD.create(request)));
     }
 
@@ -65,7 +67,7 @@ public class GroupController {
 
     @PatchMapping("/{groupId}")
     public ResponseEntity<GroupResponse> updateGroup(@PathVariable UUID groupId,
-                                                      @RequestBody GroupRequest request) {
+                                                      @RequestBody @Valid GroupRequest request) {
         return ResponseEntity.ok(GroupResponse.fromGroup(groupCRUD.updateGroup(request, groupId)));
     }
 

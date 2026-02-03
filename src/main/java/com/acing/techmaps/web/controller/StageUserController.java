@@ -3,6 +3,7 @@ package com.acing.techmaps.web.controller;
 import com.acing.techmaps.usecases.stage.StageUserCRUD;
 import com.acing.techmaps.web.model.stage.request.StageUserRequest;
 import com.acing.techmaps.web.model.stage.response.StageUserResponse;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class StageUserController {
     private final StageUserCRUD stageUserCRUD;
 
     @PostMapping("")
-    public ResponseEntity<StageUserResponse> create(@RequestBody StageUserRequest request) {
+    public ResponseEntity<StageUserResponse> create(@RequestBody @Valid StageUserRequest request) {
         return ResponseEntity.ok(StageUserResponse.createFromStageUser(stageUserCRUD.create(request)));
     }
 

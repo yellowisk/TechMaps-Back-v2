@@ -4,6 +4,7 @@ import com.acing.techmaps.domain.entities.roadmap.Roadmap;
 import com.acing.techmaps.usecases.roadmap.RoadmapCRUD;
 import com.acing.techmaps.web.model.roadmap.request.RoadmapRequest;
 import com.acing.techmaps.web.model.roadmap.response.RoadmapResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class RoadmapController {
 
     @PreAuthorize("hasRole('EDUCATIONAL')")
     @PostMapping("")
-    public ResponseEntity<RoadmapResponse> createRoadmap(@RequestBody RoadmapRequest request) {
+    public ResponseEntity<RoadmapResponse> createRoadmap(@RequestBody @Valid RoadmapRequest request) {
         Roadmap roadmap = roadmapCRUD.create(request);
         return ResponseEntity.ok(RoadmapResponse.fromRoadmap(roadmap));
     }
@@ -39,7 +40,7 @@ public class RoadmapController {
     }
 
     @PatchMapping("/{roadmapId}")
-    public ResponseEntity<RoadmapResponse> updateRoadmap(@PathVariable UUID roadmapId, @RequestBody RoadmapRequest request) {
+    public ResponseEntity<RoadmapResponse> updateRoadmap(@PathVariable UUID roadmapId, @RequestBody @Valid RoadmapRequest request) {
         Roadmap roadmap = roadmapCRUD.updateRoadmap(request, roadmapId);
         return ResponseEntity.ok(RoadmapResponse.fromRoadmap(roadmap));
     }
