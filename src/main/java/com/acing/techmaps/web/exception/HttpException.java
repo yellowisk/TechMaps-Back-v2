@@ -15,8 +15,8 @@ import java.util.Map;
  * with multiple errors that may have the same status code, while the
  * message should be human-readable.
  */
+@Getter
 public class HttpException extends RuntimeException {
-    @Getter
     private final HttpStatus status;
     private final Instant timestamp;
     private final String identifier;
