@@ -54,9 +54,13 @@ Great! The application is now running on:
 
 # Checking the Documentation
 
-To check the API documentation, you can visit:
+To check the API documentation **locally**, you can visit:
 
 [http://localhost:8757/swagger-ui/index.html](http://localhost:8757/swagger-ui/index.html)
+
+To check the API documentation **online**, you can visit:
+
+**_TO-DO: add the online link when deployed_**
 
 ---
 
