@@ -10,8 +10,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public record UserRequest(
         @NotBlank @Email String email,
         @NotBlank String position,
-        @NotBlank @Size(min = 2) String username,
-        @NotBlank @Size(min = 6) String password
+        @NotBlank @Size(min = 2, max = 100) String username,
+        @NotBlank @Size(min = 6, max = 32) String password
 ) {
 
     public User toUser() {
