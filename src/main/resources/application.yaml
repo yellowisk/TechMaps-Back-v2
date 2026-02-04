@@ -17,6 +17,9 @@ spring:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect
           format_sql: true
+  web:
+    error:
+      include-message: always
 
 security:
   jwt:
@@ -27,8 +30,6 @@ security:
 
 server:
   port: 8757
-  error:
-    include-message: always
 
 logging:
   level:
