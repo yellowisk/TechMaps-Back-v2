@@ -84,9 +84,22 @@
 			<version>8.10.1</version>
 		</dependency> <!--- Implement by reading https://www.baeldung.com/spring-bucket4j -->
 		<!-- or read https://github.com/MarcGiffing/bucket4j-spring-boot-starter/blob/master/examples/caffeine/src/main/java/com/giffing/bucket4j/spring/boot/starter/examples/caffeine/CaffeineApplication.java -->
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>9.2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+			<version>2.9.1</version>
 		</dependency>
 	</dependencies>
 

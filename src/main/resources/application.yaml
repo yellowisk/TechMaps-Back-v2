@@ -31,6 +31,18 @@ security:
 server:
   port: 8757
 
+servlet:
+  multipart:
+    max-file-size: 500MB
+    max-request-size: 500MB
+    file-size-threshold: 2MB
+
+file:
+  upload-dir: ${UPLOAD_DIR:/app/uploads}
+  firebase:
+    config-path: ${FIREBASE_CONFIG_PATH:firebase-service-account.json}
+    bucket-name: ${FIREBASE_BUCKET_NAME:techmaps-bucket.appspot.com}
+
 logging:
   level:
     org:

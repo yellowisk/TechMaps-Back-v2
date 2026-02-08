@@ -20,10 +20,13 @@ services:
       - db
     environment:
       SECRET_KEY_FILE: /run/secrets/secret_key
+        - UPLOAD_DIR=/app/uploads
     secrets:
       - secret_key
     ports:
       - "8757:8757"
+    volumes:
+      - /mnt/data/uploads:/app/uploads
 
 secrets:
   secret_key:
