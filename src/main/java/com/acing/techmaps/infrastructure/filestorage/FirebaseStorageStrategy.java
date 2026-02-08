@@ -1,5 +1,6 @@
 package com.acing.techmaps.infrastructure.filestorage;
 
+import com.acing.techmaps.domain.entities.filestorage.StorageType;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
@@ -91,5 +92,9 @@ public class FirebaseStorageStrategy implements StorageStrategy {
             throw new RuntimeException("File not found in Firebase: " + fileName);
         }
         return new ByteArrayResource(blob.getContent());
+    
+    @Override
+    public StorageType getStorageType() {
+        return StorageType.FIREBASE;
     }
 }

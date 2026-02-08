@@ -375,3 +375,13 @@ queries:
           UPDATE techmaps_platform.step_user SET is_done = ? WHERE id = ?
       delete: >
         DELETE FROM techmaps_platform.step_user WHERE id = ?
+    file-metadata-dao:
+      insert:
+        file-metadata: >
+          INSERT INTO techmaps_platform.file_metadata (id, creator_id, file_name, original_file_name, content_type, size, storage_type, path, created_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+      select:
+        file-metadata-by-id: >
+          SELECT * FROM techmaps_platform.file_metadata WHERE id = ?
+        file-metadata-by-path: >
+          SELECT * FROM techmaps_platform.file_metadata WHERE path = ?

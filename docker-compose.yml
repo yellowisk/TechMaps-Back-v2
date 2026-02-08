@@ -13,14 +13,20 @@ services:
     deploy:
       restart_policy:
         condition: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   app:
     image: techmaps-app-image
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       SECRET_KEY_FILE: /run/secrets/secret_key
-        - UPLOAD_DIR=/app/uploads
+      UPLOAD_DIR: /app/uploads
     secrets:
       - secret_key
     ports:

@@ -6,6 +6,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.UUID;
+
 @Service
 public class FileStorageCRUDImpl implements FileStorageCRUD {
     
@@ -17,8 +19,8 @@ public class FileStorageCRUDImpl implements FileStorageCRUD {
     }
 
     @Override
-    public String uploadFile(MultipartFile file) {
-        return fileStorageGateway.upload(file);
+    public String uploadFile(MultipartFile file, UUID creatorId) {
+        return fileStorageGateway.upload(file, creatorId);
     }
 
     @Override

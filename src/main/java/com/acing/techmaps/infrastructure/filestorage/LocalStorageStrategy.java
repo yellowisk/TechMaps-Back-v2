@@ -1,5 +1,6 @@
 package com.acing.techmaps.infrastructure.filestorage;
 
+import com.acing.techmaps.domain.entities.filestorage.StorageType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -94,5 +95,9 @@ public class LocalStorageStrategy implements StorageStrategy {
         } catch (MalformedURLException e) {
             throw new RuntimeException("Could not read file: " + fileName, e);
         }
+    
+    @Override
+    public StorageType getStorageType() {
+        return StorageType.LOCAL;
     }
 }

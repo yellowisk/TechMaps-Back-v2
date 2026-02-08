@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.net.URLConnection;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import com.acing.techmaps.domain.entities.user.User;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/files")
 @Tag(name = "File Storage", description = "Endpoints for file upload and download")
@@ -22,11 +27,13 @@ public class FileController {
         this.fileStorageCRUD = fileStorageCRUD;
     }
 
-    @PreAuthorize("hasRole('STUDENT')")
+    @PreAuthorize("hasRole('EDUCATIONAL')")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @Operation(summary = "Uploads a file")
     public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileStorageCRUD.uploadFile(file);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal(); 
+        String fileName = fileStorageCRUD.uploadFile(file, user.getId());
         return ResponseEntity.ok(fileName);
     }
 
