@@ -22,8 +22,7 @@ services:
   app:
     image: techmaps-app-image
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     environment:
       SECRET_KEY_FILE: /run/secrets/secret_key
       UPLOAD_DIR: /app/uploads
@@ -42,7 +41,7 @@ secrets:
     external: true
 
 volumes:
-    pgdata:
+  pgdata:
 
 networks:
   default:
