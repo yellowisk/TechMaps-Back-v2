@@ -43,14 +43,14 @@ public class FileStorageServiceImpl implements FileStorageGateway {
 
             FileMetadata metadata = new FileMetadata(
                     Generators.timeBasedGenerator().generate(),
+                    creatorId,
                     new File(path).getName(),
                     file.getOriginalFilename(),
                     detectedType,
                     file.getSize(),
                     strategy.getStorageType(),
                     path,
-                    Timestamp.from(java.time.Instant.now()),
-                    creatorId
+                    Timestamp.from(java.time.Instant.now())
             );
 
             fileMetadataDAO.save(metadata);

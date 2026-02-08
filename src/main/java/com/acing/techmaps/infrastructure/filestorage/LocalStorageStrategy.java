@@ -95,7 +95,8 @@ public class LocalStorageStrategy implements StorageStrategy {
         } catch (MalformedURLException e) {
             throw new RuntimeException("Could not read file: " + fileName, e);
         }
-    
+    }
+
     @Override
     public StorageType getStorageType() {
         return StorageType.LOCAL;

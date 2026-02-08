@@ -92,6 +92,7 @@ public class FirebaseStorageStrategy implements StorageStrategy {
             throw new RuntimeException("File not found in Firebase: " + fileName);
         }
         return new ByteArrayResource(blob.getContent());
+    }
     
     @Override
     public StorageType getStorageType() {

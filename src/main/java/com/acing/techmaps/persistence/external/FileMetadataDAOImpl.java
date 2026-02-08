@@ -37,14 +37,14 @@ public class FileMetadataDAOImpl implements FileMetadataDAO {
     public FileMetadata save(FileMetadata fileMetadata) {
         jdbcTemplate.update(insertFileMetadataQuery,
                 fileMetadata.getId(),
-                fileMetadata.getCreatorId()
+                fileMetadata.getCreatorId(),
                 fileMetadata.getFileName(),
                 fileMetadata.getOriginalFileName(),
                 fileMetadata.getContentType(),
                 fileMetadata.getSize(),
                 fileMetadata.getStorageType().name(),
                 fileMetadata.getPath(),
-                fileMetadata.getCreatedAt(),
+                fileMetadata.getCreatedAt()
         );
         return fileMetadata;
     }
@@ -77,7 +77,7 @@ public class FileMetadataDAOImpl implements FileMetadataDAO {
                 rs.getLong("size"),
                 StorageType.valueOf(rs.getString("storage_type")),
                 rs.getString("path"),
-                rs.getTimestamp("created_at"),
+                rs.getTimestamp("created_at")
         );
     }
 }
