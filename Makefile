@@ -38,9 +38,10 @@ build:
 
 deploy: init-secrets build
 	@echo "Deploying stack '$(STACK_NAME)'..."
-	docker stack deploy -c $(COMPOSE_FILE) $(STACK_NAME)
+	FIREBASE_BUCKET_NAME=$(FIREBASE_BUCKET_NAME) docker stack deploy -c $(COMPOSE_FILE) $(STACK_NAME)
 	@echo "Forcing service update to pick up new image layers..."
 	docker service update --image techmaps-app-image:latest --force techmaps_app
+
 
 down:
 	@echo "Taking down stack '$(STACK_NAME)'..."

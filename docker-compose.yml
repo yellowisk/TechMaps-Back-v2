@@ -27,12 +27,15 @@ services:
     environment:
       SECRET_KEY_FILE: /run/secrets/secret_key
       UPLOAD_DIR: /app/uploads
+      FIREBASE_CONFIG_PATH: /app/config/firebase-service-account.json
+      FIREBASE_BUCKET_NAME: ${FIREBASE_BUCKET_NAME}
     secrets:
       - secret_key
     ports:
       - "8757:8757"
     volumes:
       - /mnt/data/uploads:/app/uploads
+      - ./firebase-service-account.json:/app/config/firebase-service-account.json
 
 secrets:
   secret_key:
