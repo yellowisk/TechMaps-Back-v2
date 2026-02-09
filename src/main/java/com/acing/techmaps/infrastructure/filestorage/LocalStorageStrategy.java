@@ -6,6 +6,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
+import com.acing.techmaps.web.exception.HttpException;
 
 import com.fasterxml.uuid.Generators;
 
@@ -30,9 +32,11 @@ public class LocalStorageStrategy implements StorageStrategy {
         "application/vnd.openxmlformats-officedocument.presentationml.presentation", // PowerPoint
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // Word
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // Excel
-        "pplication/vnd.google-apps.presentation", // Google Slides
+        "application/vnd.google-apps.presentation", // Google Slides
         "application/vnd.google-apps.spreadsheet", // Google Sheets
-        "application/vnd.google-apps.document" // Google Docs
+        "application/vnd.google-apps.document", // Google Docs
+        "application/zip", // Common detection for OOXML files
+        "application/x-tika-ooxml" // Tika OOXML
     );
 
     public LocalStorageStrategy(@Value("${file.upload-dir}") String uploadDir) {
@@ -67,6 +71,15 @@ public class LocalStorageStrategy implements StorageStrategy {
             if (originalFilename != null && originalFilename.contains(".")) {
                  extension = originalFilename.substring(originalFilename.lastIndexOf("."));
             }
+
+            String mimeType = file.getContentType();
+
+            if (mimeType.equals("application/zip") || mimeType.equals("application/x-zip-compressed")) {
+                if (!originalFilename.endsWith(".pptx") && !originalFilename.endsWith(".docx") && !originalFilename.endsWith(".xlsx")) {
+                    throw new HttpException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "ZIP files are only supported if they are actually OOXML files (e.g., .docx, .xlsx, .pptx)");
+                }
+            }
+
             UUID id = Generators.timeBasedEpochGenerator().generate();
             String fileName = id.toString() + extension;
             
