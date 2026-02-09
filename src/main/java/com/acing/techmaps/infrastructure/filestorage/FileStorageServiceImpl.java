@@ -3,10 +3,12 @@ package com.acing.techmaps.infrastructure.filestorage;
 import com.acing.techmaps.domain.entities.filestorage.FileMetadata;
 import com.acing.techmaps.usecases.filestorage.gateway.FileMetadataDAO;
 import com.acing.techmaps.usecases.filestorage.gateway.FileStorageGateway;
+import com.acing.techmaps.web.exception.HttpException;
 import com.fasterxml.uuid.Generators;
 import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,7 +39,7 @@ public class FileStorageServiceImpl implements FileStorageGateway {
             StorageStrategy strategy = strategies.stream()
                     .filter(s -> s.supports(detectedType))
                     .findFirst()
-                    .orElseThrow(() -> new IllegalArgumentException("Unsupported file type detected: " + detectedType));
+                    .orElseThrow(() -> new HttpException(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "Unsupported file type detected: " + detectedType));
 
             String path = strategy.upload(file);
 
@@ -57,7 +59,7 @@ public class FileStorageServiceImpl implements FileStorageGateway {
 
             return path;
         } catch (IOException e) {
-            throw new RuntimeException("Failed to process file upload", e);
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to process file upload");
         }
     }
 
@@ -66,7 +68,25 @@ public class FileStorageServiceImpl implements FileStorageGateway {
        return strategies.stream()
                .filter(strategy -> strategy.canHandle(fileName))
                .findFirst()
-               .orElseThrow(() -> new IllegalArgumentException("Unknown file source for: " + fileName))
+               .orElseThrow(() -> new HttpException(HttpStatus.BAD_REQUEST, "Unknown file source for: " + fileName))
                .download(fileName);
+    }
+
+    @Override
+    public void delete(UUID id) {
+        FileMetadata metadata = fileMetadataDAO.findById(id);
+        
+        StorageStrategy strategy = strategies.stream()
+                .filter(s -> s.getStorageType() == metadata.getStorageType())
+                .findFirst()
+                .orElseThrow(() -> new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "No strategy found for storage type: " + metadata.getStorageType()));
+        
+        try {
+            boolean deleted = strategy.delete(metadata.getPath());
+        } catch (Exception e) {
+            throw new HttpException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to delete file from storage");
+        }
+
+        fileMetadataDAO.deleteById(id);
     }
 }

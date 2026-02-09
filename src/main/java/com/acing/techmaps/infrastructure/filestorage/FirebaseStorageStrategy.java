@@ -95,6 +95,16 @@ public class FirebaseStorageStrategy implements StorageStrategy {
         }
         return new ByteArrayResource(blob.getContent());
     }
+
+    @Override
+    public boolean delete(String fileName) {
+        Bucket bucket = StorageClient.getInstance().bucket(bucketName);
+        Blob blob = bucket.get(fileName);
+        if (blob != null && blob.exists()) {
+            return blob.delete();
+        }
+        return false;
+    }
     
     @Override
     public StorageType getStorageType() {

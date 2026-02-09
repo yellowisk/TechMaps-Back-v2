@@ -98,6 +98,16 @@ public class LocalStorageStrategy implements StorageStrategy {
     }
 
     @Override
+    public boolean delete(String fileName) {
+        try {
+            Path file = this.uploadPath.resolve(fileName);
+            return Files.deleteIfExists(file);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete file: " + fileName, e);
+        }
+    }
+
+    @Override
     public StorageType getStorageType() {
         return StorageType.LOCAL;
     }

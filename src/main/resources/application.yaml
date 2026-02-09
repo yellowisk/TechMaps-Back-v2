@@ -385,3 +385,14 @@ queries:
           SELECT * FROM techmaps_platform.file_metadata WHERE id = ?
         file-metadata-by-path: >
           SELECT * FROM techmaps_platform.file_metadata WHERE path = ?
+        file-metadata-by-original-name: >
+          SELECT * FROM techmaps_platform.file_metadata WHERE original_file_name = ?
+        file-metadata-by-creator-id: >
+          SELECT * FROM techmaps_platform.file_metadata WHERE creator_id = ?
+        file-metadata-by-storage-type: >
+          SELECT * FROM techmaps_platform.file_metadata WHERE storage_type = ?
+        all-file-metadata-ordered-by-created-at: >
+          SELECT * FROM techmaps_platform.file_metadata ORDER BY created_at DESC
+      delete:
+        file-metadata-by-id: >
+          DELETE FROM techmaps_platform.file_metadata WHERE id = ?

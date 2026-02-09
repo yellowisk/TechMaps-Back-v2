@@ -8,4 +8,5 @@ import java.util.UUID;
 public interface FileStorageGateway {
     String upload(MultipartFile file, UUID creatorId);
     Resource download(String fileName);
+    void delete(UUID id);
 }

@@ -10,5 +10,6 @@ public interface StorageStrategy {
     boolean canHandle(String fileName);
     String upload(MultipartFile file);
     Resource download(String fileName);
+    boolean delete(String fileName);
     StorageType getStorageType();
 }

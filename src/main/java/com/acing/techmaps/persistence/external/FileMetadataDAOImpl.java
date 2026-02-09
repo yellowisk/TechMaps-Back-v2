@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.List;
 
 @Repository
 public class FileMetadataDAOImpl implements FileMetadataDAO {
@@ -28,6 +29,21 @@ public class FileMetadataDAOImpl implements FileMetadataDAO {
 
     @Value("${queries.sql.file-metadata-dao.select.file-metadata-by-path}")
     private String selectFileMetadataByPathQuery;
+
+    @Value("${queries.sql.file-metadata-dao.select.file-metadata-by-original-name}")
+    private String selectFileMetadataByOriginalNameQuery;
+
+    @Value("${queries.sql.file-metadata-dao.select.file-metadata-by-creator-id}")
+    private String selectFileMetadataByCreatorIdQuery;
+
+    @Value("${queries.sql.file-metadata-dao.select.file-metadata-by-storage-type}")
+    private String selectFileMetadataByStorageTypeQuery;
+
+    @Value("${queries.sql.file-metadata-dao.select.all-file-metadata-ordered-by-created-at}")
+    private String selectAllFileMetadataOrderedByCreatedAtQuery;
+
+    @Value("${queries.sql.file-metadata-dao.delete.file-metadata-by-id}")
+    private String deleteFileMetadataByIdQuery;
 
     public FileMetadataDAOImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -65,6 +81,31 @@ public class FileMetadataDAOImpl implements FileMetadataDAO {
         } catch (EmptyResultDataAccessException e) {
             throw new HttpException(HttpStatus.NOT_FOUND, "Could not find file metadata with path: " + path);
         }
+    }
+
+    @Override
+    public void deleteById(UUID id) {
+        jdbcTemplate.update(deleteFileMetadataByIdQuery, id);
+    }
+
+    @Override
+    public List<FileMetadata> findByOriginalFileName(String originalFileName) {
+        return jdbcTemplate.query(selectFileMetadataByOriginalNameQuery, this::mapperFileMetadataFromRs, originalFileName);
+    }
+
+    @Override
+    public List<FileMetadata> findByCreatorId(UUID creatorId) {
+        return jdbcTemplate.query(selectFileMetadataByCreatorIdQuery, this::mapperFileMetadataFromRs, creatorId);
+    }
+
+    @Override
+    public List<FileMetadata> findByStorageType(StorageType storageType) {
+        return jdbcTemplate.query(selectFileMetadataByStorageTypeQuery, this::mapperFileMetadataFromRs, storageType.name());
+    }
+
+    @Override
+    public List<FileMetadata> findAllOrderedByCreatedAt() {
+        return jdbcTemplate.query(selectAllFileMetadataOrderedByCreatedAtQuery, this::mapperFileMetadataFromRs);
     }
 
     private FileMetadata mapperFileMetadataFromRs(ResultSet rs, int rowNum) throws SQLException {
