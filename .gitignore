@@ -12,6 +12,9 @@ target/
 ### ENV ###
 .env
 
+### Firebase Service Account Key ###
+firebase-service-account.json
+
 ### Eclipse JDT LS ###
 /.classpath
 /.factorypath

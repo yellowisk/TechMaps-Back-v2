@@ -14,7 +14,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
+      - name: Setup Test Environment
+        env:
+          FIREBASE_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_JSON }}
+        run: |
+          sudo mkdir -p /mnt/data/uploads
+          sudo chmod 777 /mnt/data/uploads
+
+          echo "$FIREBASE_JSON" > firebase-service-account.json
+
       - name: Run Make Deploy
-        run: make deploy
+        run: |
+          export FIREBASE_BUCKET_NAME=${{ secrets.FIREBASE_BUCKET_NAME }}
+          make deploy
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
