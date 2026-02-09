@@ -20,6 +20,12 @@ spring:
   web:
     error:
       include-message: always
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB
+      max-request-size: 500MB
+      file-size-threshold: 2MB
 
 security:
   jwt:
@@ -30,13 +36,6 @@ security:
 
 server:
   port: 8757
-
-servlet:
-  multipart:
-    enabled: true
-    max-file-size: 500MB
-    max-request-size: 500MB
-    file-size-threshold: 2MB
 
 file:
   upload-dir: ${UPLOAD_DIR:/app/uploads}
