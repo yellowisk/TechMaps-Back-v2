@@ -36,6 +36,13 @@ services:
       - /mnt/data/uploads:/app/uploads
       - ./firebase-service-account.json:/app/config/firebase-service-account.json
 
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8888:8080"
+
 secrets:
   secret_key:
     external: true
