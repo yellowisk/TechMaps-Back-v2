@@ -5,6 +5,7 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -86,10 +87,11 @@ public class FirebaseStorageStrategy implements StorageStrategy {
 
     @Override
     public Resource download(String fileName) {
-        Storage storage = StorageClient.getInstance().bucket(bucketName).getStorage();
-        Blob blob = storage.get(BlobId.of(bucketName, fileName));
-        if (blob == null) {
-            throw new RuntimeException("File not found in Firebase: " + fileName);
+        Bucket bucket = StorageClient.getInstance().bucket(bucketName);
+        Blob blob = bucket.get(fileName);
+        
+        if (blob == null || !blob.exists()) {
+            throw new RuntimeException("File not found in Firebase: " + fileName + " in bucket " + bucketName);
         }
         return new ByteArrayResource(blob.getContent());
     }
